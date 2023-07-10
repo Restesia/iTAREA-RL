@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Metrics app</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+  
+
+</head>
+<body>
+
+    <!--SET A NODE-->
+    <div class="container">
+        <h1>Set the nodes</h1>
+        <form id="object-form" action="/add_new_node" method="post">
+            <div class="form-row">
+            <div class="form-column">
+                <label for="name">Name of node</label><br>
+                <input type="text" id="name" name="name" value="-"><br><br>
+
+                <label for="cpu">CPU (cycles per second)</label><br>
+                <input type="number" id="cpu" name="cpu" value="10000000"><br><br>
+                
+                <label for="bwup">Bandwidth up (bits/s)</label><br>
+                <input type="number" id="bwup" name="bwup" value="150000000"><br><br>
+                
+                <label for="pwup">Power Upload (Ptx)</label><br>
+                <input type="number" id="pwup" name="pwup" value="0.3"><br><br>
+        
+                <label for="maxenergy"> Maximum energy consumption (Watts)</label><br>
+                <input type="number" id="maxenergy" name="maxenergy" value="75"><br><br>
+        
+                <label for="ram"> RAM (Mb)</label><br>
+                <input type="number" id="ram" name="ram" value="2000"><br><br>
+
+                <label for="importance"> Importance of saving energy in nodes <br>(real between 0 and 1). </label><br>
+                <input type="number" id="importance" name="importance" value="1"><br><br>
+
+                <label for="pwdown"> Power Download (Prx)</label><br>
+                <input type="number" id="pwdown" name="pwdown" value="0.7"><br><br>
+
+                <label for="bwdown"> Bandwidth Down (bits/s)</label><br>
+                <input type="number" id="bwdown" name="bwdown" value="150000000"><br><br>
+            </div>
+            <div class="form-column">
+                <label for="sensingunits"> Sensing units (e.g., thermomether), '' if any  (bits/s)</label><br>
+                <input type="text" id="sensingunits" name="sensingunits" value="{''}"><br><br>
+
+                <label for="peripherials">Peripherals (e.g., GPU), '' if any</label><br>
+                <input type="text" id="peripherials" name="peripherials" value="{''}"><br><br>
+                
+                <label for="typecore">Type (e.g., sensing mote)</label><br>
+                <input type="text" id="typecore" name="typecore" value="{'computing'}"><br><br>
+
+                <label for="location"> Location (e.g., dispatch 2.30) </label><br>
+                <input type="text" id="location" name="location" value="'class'+str(x)"><br><br>
+
+                <label for="owner">Owner (e,g., CAOSD group)</label><br>
+                <input type="text" id="owner" name="owner" value="public"><br><br>
+
+                <label for="comcap">Communication capacities (e.g., wlan)</label><br>
+                <input type="text" id="comcap" name="comcap" value="{'wlan'}"><br><br>
+
+                <label for="cores">Number of cores</label><br>
+                <input type="number" id="cores" name="cores" value=2><br><br>
+
+                <label for="percnormal">Percentage of idle energy consumption</label><br>
+                <input type="number" id="percnormal" name="percnormal" value=30><br><br>
+
+                <label for="percsleeping">Percentage of energy consumption in sleeping mode</label><br>
+                <input type="number" id="percsleeping" name="percsleeping" value=0.01><br><br>
+                
+            </div>
+            </div>
+            
+            <input type="submit" value="Save">
+        </form>
+
+         <!--SEE NODES LIST-->
+        <h2>Nodes list:</h2>
+        <ol>
+            {% for node in nodes_list %}
+                <li class="node-item">
+                    <div class="node-text">{{ node }}</div>
+                    <form class="delete-form" action="/delete_node" method="post">
+                        <input type="hidden" name="index" value="{{ loop.index0 }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </li>
+                <br>
+            {% endfor %}
+        </ol>
+
+    </div>
+
+    <div class="container">
+        <a class="button left-button" href="{{ url_for('index') }}">back</a>
+        <a class="button right-button" href="{{ url_for('enterTasks') }}">next</a>
+    </div>
+    
+</body>
+</html>
