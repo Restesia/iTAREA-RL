@@ -4,8 +4,8 @@ app=Flask(__name__)
 nodes_list = []
 tasks_list = []
 
-@app.route("/get_from_parameters")
-def getFromParameters():
+@app.route("/getNodesFromParameters")
+def getNodesFromParameters():
     return render_template("/enterNodes.html",  nodes_list=nodes_list, zip_lists=zip_lists)
 
 @app.route('/enterTasks')
@@ -58,7 +58,7 @@ def add_new_node():
 
     nodes_list.append(new_object)
     printAll(nodes_list)
-    return redirect(url_for('getFromParameters'))
+    return redirect(url_for('getNodesFromParameters'))
 
 @app.route('/add_new_task', methods=['POST'])
 def add_new_task():
@@ -88,7 +88,7 @@ def delete_node():
         print(index)
         if 0 <= index < len(nodes_list):
             del nodes_list[index]
-    return redirect('/get_from_parameters')
+    return redirect('/getNodesFromParameters')
 
 @app.route('/delete_task', methods=['POST'])
 def delete_task():
@@ -99,7 +99,7 @@ def delete_task():
         print(index)
         if 0 <= index < len(tasks_list):
             del tasks_list[index]
-    return redirect('/get_from_parameters')
+    return redirect('/getNodesFromParameters')
 
    
 

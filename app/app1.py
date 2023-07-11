@@ -9,22 +9,23 @@ api = client.CoreV1Api()
 custom_api = client.CustomObjectsApi()
 
 def print_info():
-	nodes = api.list_node().items
-	for node in nodes:
-	    print("- Nombre: %s" % node.metadata.name)
-	    print("  Dirección IP: %s" % node.status.addresses[0].address)
-	    print("  Estado: %s" % node.status.conditions[0].type)
-	    print("")
+    
+    nodes = api.list_node().items    
+    for node in nodes:
+        print("- Nombre: %s" % node.metadata.name)
+        print("  Dirección IP: %s" % node.status.addresses[0].address)
+        print("  Estado: %s" % node.status.conditions[0].type)
+        print("")
 
 	# Obtener la lista de servicios en el clúster
-	print("Servicios en el clúster de Kubernetes:")
-	services = api.list_service_for_all_namespaces().items
-	for service in services:
-	    print("- Nombre: %s" % service.metadata.name)
-	    print("  Namespace: %s" % service.metadata.namespace)
-	    print("  Tipo: %s" % service.spec.type)
-	    print("  Puertos expuestos: %s" % service.spec.ports)
-	    print("")
+    print("Servicios en el clúster de Kubernetes:")
+    services = api.list_service_for_all_namespaces().items
+    for service in services:
+        print("- Nombre: %s" % service.metadata.name)
+        print("  Namespace: %s" % service.metadata.namespace)
+        print("  Tipo: %s" % service.spec.type)
+        print("  Puertos expuestos: %s" % service.spec.ports)
+        print("")
 
 def get_cpu_usage_per_pod(pod):
     cpu_usage = 0
