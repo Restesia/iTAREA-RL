@@ -1,1 +1,25 @@
-"Hi"
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title with Buttons</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    </head>
+    <body>
+        <h1>Result</h1>
+        <pre>{{ result }}</pre>
+        
+        <h2>Nodes</h2>
+        <ul>
+        {% for node in nodes_list %}
+            <li>{{ node }}</li>
+        {% endfor %}
+        </ul>
+        
+        <h2>Tasks</h2>
+        <ul>
+        {% for task in tasks_list %}
+            <li>{{ task }}</li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>

@@ -70,9 +70,9 @@
         <ol>
             {% for task in tasks_list %}
                 <li class="task-item">
-                    <div class="task-text">{{ task.taskname }}</div>
+                    <div class="task-text">{{ task }}</div>
                     <form class="delete-form" action="/delete_task" method="post">
-                        <input type="hidden" name="index" value="{{ loop.index }}">
+                        <input type="hidden" name="index" value="{{ loop.index0 }}">
                         <input type="submit" value="Delete">
                     </form>
                 </li>
@@ -85,7 +85,7 @@
 
     <div class="container">
         <a class="button left-button" href="{{ url_for('getNodesFromParameters') }}">back</a>
-        <a class="button right-button" href="{{ url_for('index') }}">next</a>
+        <a class="button right-button" href="{{ url_for('printValues') }}">next</a>
     </div>
     
 </body>

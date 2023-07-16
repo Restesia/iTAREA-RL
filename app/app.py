@@ -1,4 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request, jsonify
+import subprocess
+import json
 
 app=Flask(__name__)
 nodes_list = []
@@ -6,12 +8,21 @@ tasks_list = []
 
 @app.route("/getNodesFromParameters")
 def getNodesFromParameters():
-    return render_template("/enterNodes.html",  nodes_list=nodes_list, zip_lists=zip_lists)
+    return render_template("enterNodes.html",  nodes_list=nodes_list, zip_lists=zip_lists)
 
-@app.route('/enterTasks')
-def enterTasks():
+@app.route('/getTasksFromParameters')
+def getTasksFromParameters():
     # Aquí puedes realizar cualquier lógica adicional que necesites
-    return render_template('enterTasks.html', tasks_list=tasks_list)
+    return render_template('enterTasks.html', tasks_list=tasks_list, zip_lists=zip_lists)
+
+@app.route('/printValues')
+def printValues():
+    # Aquí puedes realizar cualquier lógica adicional que necesites
+    nodes_json = json.dumps(nodes_list)
+    tasks_json = json.dumps(tasks_list)
+    cmd = ['python', 'app/iTarea-v2.0.py', nodes_json, tasks_json]
+    output = subprocess.check_output(cmd).decode('utf-8')    
+    return render_template('printValues.html', result=output)
 
 @app.route('/add_new_node', methods=['POST'])
 def add_new_node():
@@ -62,13 +73,37 @@ def add_new_node():
 
 @app.route('/add_new_task', methods=['POST'])
 def add_new_task():
+
     taskname = request.form['taskname']
+    cpucycles = request.form['cpucycles']
+    ram = request.form['ram']
+    user = request.form['user']
+    mintransm = request.form['mintransm']
+    sensreq = request.form['sensreq']
+    periphreq = request.form['periphreq']
+    transmit = request.form['transmit']
+    exlocation = request.form['exlocation']
+    tasktype = request.form['tasktype']
+    disk = request.form['disk']
+
+
     new_object = {
-        'taskname': taskname
+        'taskname': taskname,
+        'cpucycles': cpucycles,
+        'ram':ram,
+        'user':user,
+        'mintransm':mintransm,
+        'sensreq':sensreq,
+        'periphreq':periphreq,
+        'transmit':transmit,
+        'exlocation':exlocation,
+        'tasktype':tasktype,
+        'disk':disk,
     }
+
     tasks_list.append(new_object)
     printAll(tasks_list)
-    return redirect(url_for('enterTasks'))
+    return redirect(url_for('getTasksFromParameters'))
 
 def printAll(list):
     for elem in list:
@@ -99,7 +134,7 @@ def delete_task():
         print(index)
         if 0 <= index < len(tasks_list):
             del tasks_list[index]
-    return redirect('/getNodesFromParameters')
+    return redirect('/getTasksFromParameters')
 
    
 
