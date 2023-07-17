@@ -27,16 +27,19 @@ def set_problem_size ():
 	global tasks
 	global nodes
 
+	nTask = len(tasks_list) # Number of tasks
+	nNodes = len(nodes_list) # Number of nodes that form the infrastructure
+
 	nUsers = 1 #1 (by default) in case of executing the iTAREA module each time a new user join the network.
 	nConstraints = 0 #Number of application's time constraints
 	cpuPercentages = 2 # Granularity of the core partitions assigned (1/cpuPercentages). e.g., portions of 500 milicores in case of cpuPercentages=2
 
 	
 	tasks = [ [ 0 for c in range(11) ] 
-      	for r in range(nTask) ]
+      	for r in range(int(nTask)) ]
 
 	nodes = [ [ 0 for c in range(17) ] 
-	      for r in range(nNodes) ]
+	      for r in range(int(nNodes)) ]
 
 ###
 ### Este método crea una matriz con los datos que se intercambian entre las tareas, 
@@ -76,9 +79,9 @@ def set_tasks () :
 				int(task['ram']),
 				int(task['user']),
 				int(task['mintransm']),
-				task['sensreq'],
-				task['periphreq'],
-				task['transmit'],
+				list(eval(task['sensreq'])),  # Convertir el conjunto en una lista utilizando eval()
+				list(eval(task['periphreq'])),  # Convertir el conjunto en una lista utilizando eval()
+				list(eval(task['transmit'])),  # Convertir el conjunto en una lista utilizando eval()
 				task['exlocation'],
 				task['tasktype'],
 				int(task['disk']),
@@ -123,54 +126,69 @@ def set_nodes ():
 
 	for x, node in enumerate(nodes_list):
 		node = [
-			int(node['cpu']),
-			int(node['bwup']),
-			float(node['pwup']),
-			int(node['maxenergy']),
-			int(node['ram']),
-			float(node['importance']),
-			float(node['pwdown']),
-			int(node['bwdown']),
-			eval(node['sensingunits']),  # Utilizar eval() para evaluar la cadena como un conjunto o diccionario
-			eval(node['peripherials']),  # Utilizar eval() para evaluar la cadena como un conjunto o diccionario
-			eval(node['typecore']),  # Utilizar eval() para evaluar la cadena como un conjunto o diccionario
-			eval(node['location']),  # Utilizar eval() para evaluar la cadena como una expresión
-			node['owner'],
-			eval(node['comcap']),  # Utilizar eval() para evaluar la cadena como un conjunto o diccionario
-			int(node['cores']),
-			float(node['percnormal']),
-			float(node['percsleeping'])
+            int(node['cpu']),
+            int(node['bwup']),
+            float(node['pwup']),
+            int(node['maxenergy']),
+            int(node['ram']),
+            float(node['importance']),
+            float(node['pwdown']),
+            int(node['bwdown']),
+            list(eval(node['sensingunits'])),  # Convertir el conjunto en una lista utilizando eval()
+            list(eval(node['peripherials'])),  # Convertir el conjunto en una lista utilizando eval()
+            list(eval(node['typecore'])),  # Convertir el conjunto en una lista utilizando eval()
+            eval(node['location']),
+            node['owner'],
+            list(eval(node['comcap'])),  # Convertir el conjunto en una lista utilizando eval()
+            int(node['cores']),
+            float(node['percnormal']),
+            float(node['percsleeping'])
 		]
 	nodes.append(node)
+
+
+def printAll():
+    print("-nUsers:", nUsers)
+    print("-nConstraints:", nConstraints)
+    print("-nTask:", nTask)
+    print("-nNodes:", nNodes)
+    print("-cpuPercentages:", cpuPercentages)
+    print("-tasks:", tasks) #VACÍO
+    print("-nodes:", nodes) #VACÍO
+    print("-relation:", relation)  #VACÍO
+    print("-rtt:", rtt) 
+
+def callSolver():
+	
+	nlist = json.dumps(nodes_list)
+	tlist = json.dumps(tasks_list)
+	relation_str = json.dumps(relation)
+	rtt_str = json.dumps(rtt)
+
+	print("*nlist", nlist) 
+	print("*tlist", tlist) 
+
+	cmd = ['python', 'app/isolver.py', str(nUsers), str(nConstraints), str(nTask), str(nNodes), str(cpuPercentages), nlist, tlist, relation_str, rtt_str]
+	output = subprocess.check_output(cmd).decode('utf-8')
+	return output
 		
 
 if __name__ == "__main__":
 
 	# Obtener los argumentos pasados desde app.py
-	json_nodes_list = sys.argv[1]  # Argumento 1 (la lista de nodos en formato JSON)
-	json_tasks_list = sys.argv[2]  # Argumento 2 (la lista de tareas en formato JSON)
-
-	print("-----------------------",json_nodes_list)
+	json_nodes_list = sys.argv[1] 
+	json_tasks_list = sys.argv[2] 
 
 	# Convertir los datos JSON a listas de Python
 	nodes_list = json.loads(json_nodes_list)
-	tasks_list = json.loads(json_tasks_list)
+	tasks_list = json.loads(json_tasks_list)	
 
 	set_problem_size ()
 	set_data_to_transmit ()
-	set_nodes ()
+	set_nodes ()	
 	set_tasks ()
 	set_rtt ()
+	
+	callSolver()
 
-	nTask = len(tasks_list) # Number of tasks
-	nNodes = len(nodes_list) # Number of nodes that form the infrastructure
-
-	# Convertir los argumentos a cadenas
-	# tasks_str = str(tasks)
-	# nodes_str = str(nodes)
-	relation_str = str(relation)
-	rtt_str = str(rtt)
-
-	cmd = ['python', 'app\\iTarea-solver.py', str(nUsers), str(nConstraints), str(nTask), str(nNodes), str(cpuPercentages), nodes, tasks]
-	output = subprocess.check_output(cmd).decode('utf-8')
-	print(output) # Esta salida será capturada por app.py en el futuro
+	print() # Esta salida será capturada por app.py en el futuro

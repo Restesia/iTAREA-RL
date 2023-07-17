@@ -20,7 +20,7 @@ def printValues():
     # Aquí puedes realizar cualquier lógica adicional que necesites
     nodes_json = json.dumps(nodes_list)
     tasks_json = json.dumps(tasks_list)
-    cmd = ['python', 'app/iTarea-v2.0.py', nodes_json, tasks_json]
+    cmd = ['python', 'app/igetter.py', nodes_json, tasks_json]
     output = subprocess.check_output(cmd).decode('utf-8')    
     return render_template('printValues.html', result=output)
 
@@ -85,6 +85,7 @@ def add_new_task():
     exlocation = request.form['exlocation']
     tasktype = request.form['tasktype']
     disk = request.form['disk']
+    
 
 
     new_object = {
