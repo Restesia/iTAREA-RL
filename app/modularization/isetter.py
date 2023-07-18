@@ -1,11 +1,14 @@
 from gurobipy import *
 
-def set_problem_size():
+def set_problem_size(nodes_list, tasks_list):
+
     nUsers = 1
     nConstraints = 0
-    nTask = 5
-    nNodes = 5
     cpuPercentages = 2
+
+    nTask = len(tasks_list) # Number of tasks
+    nNodes = len(nodes_list) # Number of nodes that form the infrastructure
+
     solver = Model("milp")
     solver.setParam(GRB.Param.NonConvex, 2)
 
@@ -65,7 +68,12 @@ def set_nodes(nNodes):
     return nodes
 
 def setterMain():
-    nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes = set_problem_size()
+
+    # Obtener los argumentos pasados desde app.py
+
+
+    #Definir el problema
+    nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes = set_problem_size(nodes_list, tasks_list)
     relation = set_data_to_transmit(nTask)
     nodes = set_nodes(nNodes)
     tasks = set_tasks(nTask)

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, jsonify
+from modularization.imain import getLists
 import subprocess
 import json
 
@@ -17,11 +18,20 @@ def getTasksFromParameters():
 
 @app.route('/printValues')
 def printValues():
-    # Aquí puedes realizar cualquier lógica adicional que necesites
+
     nodes_json = json.dumps(nodes_list)
     tasks_json = json.dumps(tasks_list)
-    cmd = ['python', 'app/igetter.py', nodes_json, tasks_json]
-    output = subprocess.check_output(cmd).decode('utf-8')    
+    
+    output=""
+    output = subprocess.check_output(['python', 'modularization/imain.py', nodes_json, tasks_json], text=True)
+
+
+    print("OUTPUT: ", output)
+
+    # .decode('utf-8')
+    
+      
+
     return render_template('printValues.html', result=output)
 
 @app.route('/add_new_node', methods=['POST'])
@@ -68,7 +78,7 @@ def add_new_node():
     }
 
     nodes_list.append(new_object)
-    printAll(nodes_list)
+    #printAll(nodes_list)
     return redirect(url_for('getNodesFromParameters'))
 
 @app.route('/add_new_task', methods=['POST'])
@@ -85,7 +95,6 @@ def add_new_task():
     exlocation = request.form['exlocation']
     tasktype = request.form['tasktype']
     disk = request.form['disk']
-    
 
 
     new_object = {
@@ -103,7 +112,7 @@ def add_new_task():
     }
 
     tasks_list.append(new_object)
-    printAll(tasks_list)
+    #printAll(tasks_list)
     return redirect(url_for('getTasksFromParameters'))
 
 def printAll(list):
