@@ -1,6 +1,6 @@
 from gurobipy import *
 
-def getData(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes):
+def energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes):
 
     communicationCost = solver.addVar(vtype=GRB.CONTINUOUS, name='communicationCost')
     communicationCostDown = solver.addVar(vtype=GRB.CONTINUOUS, name='communicationCostDown')
@@ -24,4 +24,4 @@ def getData(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes):
     return communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints
 
 if __name__ == "__main__":
-    getData(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)
+    energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)

@@ -125,9 +125,9 @@ def getData(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes):
 
 
 
-def solveAll(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
+def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
     solver = solve(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints)
     printAssignment(cpuPercentages, solver)
 
 if __name__ == "__main__":
-    solveAll(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver)
+    solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver)

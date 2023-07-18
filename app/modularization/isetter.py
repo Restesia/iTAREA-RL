@@ -64,7 +64,7 @@ def set_nodes(nNodes):
         nodes[x][16] = 0.01
     return nodes
 
-def getAll():
+def setterMain():
     nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes = set_problem_size()
     relation = set_data_to_transmit(nTask)
     nodes = set_nodes(nNodes)
@@ -74,4 +74,4 @@ def getAll():
 
 
 if __name__ == "__main__":
-    getAll()
+    setterMain()
