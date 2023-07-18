@@ -1,7 +1,7 @@
 from gurobipy import *
 import re
 
-def solve(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
+def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
     for t in range(nTask):
         solver.addConstr(quicksum(assignment[t][n] for n in range(nNodes)) == 1)
 
@@ -83,51 +83,6 @@ def solve(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, no
 
     solver.optimize()
     return solver
-
-    
-
-def printAssignment(cpuPercentages, solver):
-    if solver.status != 3:
-        for v in solver.getVars():
-            if v.varName[0:5] == 'ASING' and v.x == 1:
-                aux = re.findall('\d+', v.varName)
-                print('Task ' + str(aux[0]) + ' assigned to Node ' + str(aux[1]))
-
-            if str(v.varName[0:4]) == 'pCPU' and v.x > 0:
-                aux = re.findall('\d+', v.varName)
-                print('CPU assigned in Node ' + str(aux[0]) + ' to Task ' + str(aux[1]) +
-                      '. CPU (cores): ' + str(int(v.x) / (cpuPercentages)))
-    else:
-        print('The model is infeasible')
-
-def getData(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes):
-
-    communicationCost = solver.addVar(vtype=GRB.CONTINUOUS, name='communicationCost')
-    communicationCostDown = solver.addVar(vtype=GRB.CONTINUOUS, name='communicationCostDown')
-    computationCost = solver.addVar(vtype=GRB.CONTINUOUS, name='computationCost')
-    communicationTime = solver.addVar(vtype=GRB.CONTINUOUS, name='communicationTime')
-    computationTime = solver.addVar(vtype=GRB.CONTINUOUS, name='computationTime')
-    cores = solver.addVar(vtype=GRB.INTEGER, name='cores')
-
-    assignment = [[solver.addVar(vtype=GRB.BINARY, name="ASING_%s_%s" % (r, c)) for c in range(nNodes)]
-                  for r in range(nTask * nUsers)]
-
-    percentageCPU = [[solver.addVar(vtype=GRB.INTEGER, name="pCPU_%s_%s" % (r, c), lb=0,
-                                    ub=cpuPercentages * nodes[r][14]) for c in range(nTask)]
-                     for r in range(nNodes)]
-
-    percentageCPUaux = [[solver.addVar(vtype=GRB.CONTINUOUS, name="auxPCPU_%s_%s" % (r, c), lb=0,
-                                       ub=cpuPercentages * nodes[r][14]) for c in range(nTask)]
-                        for r in range(nNodes)]
-
-    constraints = [[0 for _ in range(nTask)] for _ in range(nConstraints)]
-    return communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints
-
-
-
-def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
-    solver = solve(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints)
-    printAssignment(cpuPercentages, solver)
 
 if __name__ == "__main__":
     solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver)

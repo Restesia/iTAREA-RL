@@ -1,6 +1,7 @@
 from isetter import * 
 from ienergy import *
 from isolver import *
+from iprinter import *
 
 if __name__ == "__main__":
     
@@ -11,4 +12,26 @@ if __name__ == "__main__":
     communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints = energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)
     
     # 3. Llamar a la función solveAll
-    solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints)
+    solverMain(tasks, 
+               nodes, 
+               relation, 
+               rtt, 
+               nUsers, 
+               nConstraints, 
+               nTask, 
+               nNodes, 
+               cpuPercentages, 
+               solver, 
+               communicationCost, 
+               communicationCostDown, 
+               computationCost, 
+               communicationTime, 
+               computationTime, 
+               cores, 
+               assignment, 
+               percentageCPU, 
+               percentageCPUaux, 
+               constraints)
+
+    # 4. Imprimir
+    printerMain(cpuPercentages, solver)
