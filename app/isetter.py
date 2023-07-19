@@ -67,12 +67,7 @@ def set_nodes(nNodes):
         nodes[x][16] = 0.01
     return nodes
 
-def setterMain():
-
-    # Obtener los argumentos pasados desde app.py
-
-
-    #Definir el problema
+def setterMain(nodes_list, tasks_list):
     nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes = set_problem_size(nodes_list, tasks_list)
     relation = set_data_to_transmit(nTask)
     nodes = set_nodes(nNodes)
@@ -82,4 +77,4 @@ def setterMain():
 
 
 if __name__ == "__main__":
-    setterMain()
+    setterMain(nodes_list, tasks_list)

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, jsonify
-from modularization.imain import getLists
+from imain import *
 import subprocess
 import json
 
@@ -23,7 +23,7 @@ def printValues():
     tasks_json = json.dumps(tasks_list)
     
     output=""
-    output = subprocess.check_output(['python', 'modularization/imain.py', nodes_json, tasks_json], text=True)
+    output = subprocess.check_output(['python', 'app/imain.py', nodes_json, tasks_json], text=True)
 
 
     print("OUTPUT: ", output)
