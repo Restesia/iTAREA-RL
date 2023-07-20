@@ -6,6 +6,7 @@ import json
 app=Flask(__name__)
 nodes_list = []
 tasks_list = []
+route = 'imain.py' #app_metrics/app/imain.py
 
 @app.route("/getNodesFromParameters")
 def getNodesFromParameters():
@@ -23,14 +24,13 @@ def printValues():
     tasks_json = json.dumps(tasks_list)
     
     output=""
-    output = subprocess.check_output(['python', 'app/imain.py', nodes_json, tasks_json], text=True)
 
-
-    print("OUTPUT: ", output)
-
-    # .decode('utf-8')
-    
-      
+    try:
+        output = subprocess.check_output(['python', route, nodes_json, tasks_json], text=True)
+        print("OUTPUT: ", output)
+    except subprocess.CalledProcessError as e:
+        print("Error executing imain.py:", e)
+        print("Error output:", e.output)
 
     return render_template('printValues.html', result=output)
 
