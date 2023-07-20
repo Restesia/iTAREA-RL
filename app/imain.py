@@ -58,4 +58,5 @@ if __name__ == "__main__":
     
     # 4. Imprimir
     res += str(printerMain(cpuPercentages, solver))
-    #print(res)
+    # nodes_list
+    # tasks_list
