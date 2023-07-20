@@ -1,1 +1,7 @@
 config.py
+app/__pycache__/ienergy.cpython-311.pyc
+app/__pycache__/imain.cpython-311.pyc
+app/__pycache__/iprinter.cpython-311.pyc
+.gitignore
+app/__pycache__/isetter.cpython-311.pyc
+app/__pycache__/isolver.cpython-311.pyc

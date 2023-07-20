@@ -27,7 +27,7 @@ def printValues():
 
     try:
         output = subprocess.check_output(['python', route, nodes_json, tasks_json], text=True)
-        print("OUTPUT: ", output)
+        #print("OUTPUT: ", output)
     except subprocess.CalledProcessError as e:
         print("Error executing imain.py:", e)
         print("Error output:", e.output)

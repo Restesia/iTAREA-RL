@@ -2,7 +2,7 @@ from gurobipy import *
 import re
 
 def printerMain(cpuPercentages, solver):
-    #solver = solve(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints)
+    print("")
     if solver.status != 3:
         for v in solver.getVars():
             if v.varName[0:5] == 'ASING' and v.x == 1:

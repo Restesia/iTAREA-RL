@@ -8,6 +8,7 @@
         <h1>Result</h1>
         <pre>{{ result }}</pre>
         
+        <!--
         <h2>Nodes</h2>
         <ul>
         {% for node in nodes_list %}
@@ -21,5 +22,12 @@
             <li>{{ task }}</li>
         {% endfor %}
         </ul>
+        -->
+
+        <div class="container">
+            <a class="button left-button" href="{{ url_for('getTasksFromParameters') }}">back</a>
+            <a class="button right-button" href="{{ url_for('index') }}">restart</a>
+        </div>
+
     </body>
 </html>
