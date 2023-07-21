@@ -73,6 +73,7 @@ def setterMain(nodes_list, tasks_list):
     nodes = set_nodes(nNodes)
     tasks = set_tasks(nTask)
     rtt = set_rtt(nNodes)
+    print (nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt)
     return (nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt)
 
 

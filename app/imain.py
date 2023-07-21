@@ -5,6 +5,7 @@ from iprinter import *
 
 import sys
 import json
+res=""
 
 # Convertir los datos JSON a listas de Python
 def getLists(json_nodes_list , json_tasks_list):
@@ -13,9 +14,8 @@ def getLists(json_nodes_list , json_tasks_list):
     tasks_list = json.loads(json_tasks_list)
     return nodes_list,tasks_list
 
-if __name__ == "__main__":
 
-    res=""
+if __name__ == "__main__":
 
     # 1. Rescatar las listas
     nodes_list, tasks_list = getLists(sys.argv[1], sys.argv[2])
@@ -56,7 +56,7 @@ if __name__ == "__main__":
         constraints)
 
     
-    # 4. Imprimir
+    # 4. Imprimir pantalla
     res += str(printerMain(cpuPercentages, solver))
-    # nodes_list
-    # tasks_list
+    #res += "NODES: " + str(nodes_list) + "\n"
+    #res += "TASKS: " + str(tasks_list) + "\n"

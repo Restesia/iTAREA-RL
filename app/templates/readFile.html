@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Read File</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+</head>
+<body>
+  <div class="container">
+    <h1>Read File</h1>
+    <form action="/upload_file" method="post" enctype="multipart/form-data">
+      <label for="file_input">Select a file:</label>
+      <input type="file" id="file_input" name="file_input">
+      <input type="submit" value="Upload">
+    </form>
+  </div>
+  <div class="container">
+    <h1>Netx step</h1>
+    <a class="button left-button" href="{{ url_for('index') }}">Get from parameters</a>
+    <a class="button right-button" href="{{ url_for('printValues') }}">Print Values</a>
+  </div>
+</body>
+</html>

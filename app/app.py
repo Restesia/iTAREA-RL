@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, jsonify
 from imain import *
 import subprocess
 import json
+import os
 
 app=Flask(__name__)
 nodes_list = []
@@ -12,26 +13,30 @@ route = 'imain.py' #app_metrics/app/imain.py
 def getNodesFromParameters():
     return render_template("enterNodes.html",  nodes_list=nodes_list, zip_lists=zip_lists)
 
-@app.route('/getTasksFromParameters')
+@app.route("/getTasksFromParameters")
 def getTasksFromParameters():
-    # Aquí puedes realizar cualquier lógica adicional que necesites
-    return render_template('enterTasks.html', tasks_list=tasks_list, zip_lists=zip_lists)
+    return render_template("enterTasks.html", tasks_list=tasks_list, zip_lists=zip_lists)
 
-@app.route('/printValues')
+@app.route("/readFile")
+def readFile():
+    # Aquí puedes realizar cualquier lógica adicional que necesites
+    return render_template("readFile.html")
+
+@app.route("/printValues")
 def printValues():
 
     nodes_json = json.dumps(nodes_list)
     tasks_json = json.dumps(tasks_list)
-    
     output=""
 
     try:
         output = subprocess.check_output(['python', route, nodes_json, tasks_json], text=True)
-        #print("OUTPUT: ", output)
+        if not output.strip():  # Verificar si el resultado está vacío
+            output = "No result"
     except subprocess.CalledProcessError as e:
         print("Error executing imain.py:", e)
         print("Error output:", e.output)
-
+    
     return render_template('printValues.html', result=output)
 
 @app.route('/add_new_node', methods=['POST'])
@@ -146,6 +151,40 @@ def delete_task():
             del tasks_list[index]
     return redirect('/getTasksFromParameters')
 
+@app.route("/saveResult", methods=["POST"])
+def saveResult():
+    filename = request.form["filename"]
+    location = request.form["location"]
+    filepath = os.path.join(location, filename + ".txt")
+
+    try:
+        with open(filepath, "w") as file:
+            file.write(request.args.get("result", ""))
+        message = f"El resultado se ha guardado en {filepath}"
+    except Exception as e:
+        message = f"Error al guardar el resultado: {str(e)}"
+
+    return render_template('saveResult.html', message=message)
+
+
+@app.route('/upload_file', methods=['POST'])
+def upload_file():
+    if request.method == 'POST':
+        file = request.files['file_input']
+        if file:
+
+            # Procesamiento del archivo cargado (leer el contenido del archivo y hacer algo con él). ¿Pandas?
+            # Puedes utilizar bibliotecas como pandas para procesar archivos CSV.
+            file_content = file.read()
+            
+            # Procesar el contenido del archivo como desees (puedes imprimirlo para verlo en la consola)
+            print("CONTENT:"+"\n")
+            print(file_content)
+
+            # Guardar el contenido del archivo en una lista, diccionario u otra estructura de datos
+
+    return redirect(url_for('index'))  # Redirige de nuevo a la página principal después de procesar el archivo
+
    
 
 @app.route('/')
@@ -165,5 +204,3 @@ def index():
 
 if __name__=='__main__':
     app.run(debug=True, port=5000) #removable options inside the function
-
-#https://youtu.be/-1DmVCPB6H8?t=1109

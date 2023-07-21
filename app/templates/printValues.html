@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html>
+
+
     <head>
         <title>Title with Buttons</title>
         <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+        <script>
+            function saveFile() {
+                var form = document.getElementById("saveForm");
+                form.submit();
+            }
+        </script>
+        
+    
     </head>
     <body>
         <h1>Result</h1>
@@ -24,6 +34,17 @@
         </ul>
         -->
 
+
+        <form id="saveForm" action="{{ url_for('saveResult') }}" method="post" style="display: none;">
+            <input type="hidden" name="filename" value="resultado.txt">
+            <input type="hidden" name="location" value="/ruta/del/archivo/resultado.txt">
+            <textarea name="result" style="display: none;">{{ result }}</textarea>
+        </form>
+    
+        <div class="container">
+            <button class="button" onclick="saveFile()">Guardar</button>
+        </div>
+    
         <div class="container">
             <a class="button left-button" href="{{ url_for('getTasksFromParameters') }}">back</a>
             <a class="button right-button" href="{{ url_for('index') }}">restart</a>
