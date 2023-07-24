@@ -1,4 +1,5 @@
 from gurobipy import *
+import logging
 
 def set_problem_size(nodes_list, tasks_list):
 
@@ -35,8 +36,9 @@ def set_data_to_transmit(nTask):
 # 9 - Disk required (Mb) 
 # 10 - Task name
 
-def set_tasks(nTask):
+def set_tasks(nTask, tasks_list):
     tasks = [[0 for _ in range(11)] for _ in range(nTask)]
+    
     for x in range(nTask):
         tasks[x][0] = 150000
         tasks[x][1] = 150
@@ -74,7 +76,7 @@ def set_rtt(nNodes):
 # 15 - Percentage of idle energy consumption, 
 # 16 - Percentage of energy consumption in sleeping mode
 
-def set_nodes(nNodes):
+def set_nodes(nNodes, nodes_list):
     nodes = [[0 for _ in range(17)] for _ in range(nNodes)]
     for x in range(nNodes):
         nodes[x][0] = 10000000
@@ -99,8 +101,8 @@ def set_nodes(nNodes):
 def setterMain(nodes_list, tasks_list):
     nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes = set_problem_size(nodes_list, tasks_list)
     relation = set_data_to_transmit(nTask)
-    nodes = set_nodes(nNodes)
-    tasks = set_tasks(nTask)
+    nodes = set_nodes(nNodes, nodes_list)
+    tasks = set_tasks(nTask, tasks_list)
     rtt = set_rtt(nNodes)
     print (nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt)
     return (nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt)
