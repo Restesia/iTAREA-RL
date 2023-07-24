@@ -3,11 +3,13 @@ from imain import *
 import subprocess
 import json
 import os
+import datetime
 
 app=Flask(__name__)
 nodes_list = []
 tasks_list = []
-route = 'imain.py' #app_metrics/app/imain.py
+route = 'imain.py'
+#route = 'app_metrics/app/imain.py'
 
 @app.route("/getNodesFromParameters")
 def getNodesFromParameters():
@@ -153,18 +155,33 @@ def delete_task():
 
 @app.route("/saveResult", methods=["POST"])
 def saveResult():
-    filename = request.form["filename"]
-    location = request.form["location"]
-    filepath = os.path.join(location, filename + ".txt")
-
     try:
-        with open(filepath, "w") as file:
-            file.write(request.args.get("result", ""))
-        message = f"El resultado se ha guardado en {filepath}"
-    except Exception as e:
-        message = f"Error al guardar el resultado: {str(e)}"
+        now = datetime.datetime.now()
+        date_string = now.strftime("%d-%m-%y_%H.%M")
+        filename = f"{date_string}.txt"
+        location = request.form.get("location")
 
-    return render_template('saveResult.html', message=message)
+        if not location:
+            raise ValueError("La ubicación no puede estar vacía")
+
+        filepath = os.path.join(location, filename)
+
+        result = request.form.get("result", "")  # Obtener el contenido del resultado
+
+        with open(filepath, "w") as file:
+            file.write(result)
+
+        message = f"El resultado se ha guardado en {filepath}"
+    except FileNotFoundError as e:
+        message = f"Error al guardar el resultado: {str(e)}"
+    except PermissionError as e:
+        message = f"Error de permisos al guardar el resultado: {str(e)}"
+    except ValueError as e:
+        message = f"Error al guardar el resultado: {str(e)}"
+    except Exception as e:
+        message = f"Error inesperado al guardar el resultado: {str(e)}"
+
+    return message
 
 
 @app.route('/upload_file', methods=['POST'])
