@@ -40,17 +40,18 @@ def set_tasks(nTask, tasks_list):
     tasks = [[0 for _ in range(11)] for _ in range(nTask)]
     
     for x in range(nTask):
-        tasks[x][0] = 150000
-        tasks[x][1] = 150
-        tasks[x][2] = 0
-        tasks[x][3] = 0
-        tasks[x][4] = {''}
-        tasks[x][5] = {''}
-        tasks[x][6] = {}
-        tasks[x][7] = 'none'
-        tasks[x][8] = 'computing'
-        tasks[x][9] = 100
-        tasks[x][10] = 'name'
+        task = tasks_list[x]  # Obtener el diccionario que representa la tarea
+        tasks[x][0] = task.get('cpucycles', 150000)
+        tasks[x][1] = task.get('ram', 150)
+        tasks[x][2] = task.get('user', 0)
+        tasks[x][3] = task.get('mintransm', 0)
+        tasks[x][4] = task.get('sensreq', {''})
+        tasks[x][5] = task.get('periphreq', {''})
+        tasks[x][6] = task.get('transmit', {})
+        tasks[x][7] = task.get('exlocation', 'none')
+        tasks[x][8] = task.get('tasktype', 'computing')
+        tasks[x][9] = task.get('disk', 100)
+        tasks[x][10] = task.get('taskname', 'name')
     return tasks
 
 
@@ -79,24 +80,28 @@ def set_rtt(nNodes):
 def set_nodes(nNodes, nodes_list):
     nodes = [[0 for _ in range(17)] for _ in range(nNodes)]
     for x in range(nNodes):
-        nodes[x][0] = 10000000
-        nodes[x][1] = 150000000
-        nodes[x][2] = 0.3
-        nodes[x][3] = 75
-        nodes[x][4] = 2000
-        nodes[x][5] = 1
-        nodes[x][6] = 0.7
-        nodes[x][7] = 150000000
-        nodes[x][8] = {''}
-        nodes[x][9] = {''}
-        nodes[x][10] = 'computing'
-        nodes[x][11] = 'class' + str(x)
-        nodes[x][12] = 'public'
-        nodes[x][13] = {'wlan'}
-        nodes[x][14] = 2
-        nodes[x][15] = 30
-        nodes[x][16] = 0.01
+        node = nodes_list[x]  # Obtener el diccionario que representa el nodo
+        nodes[x][0] = node.get('cpu', 10000000)
+        nodes[x][1] = node.get('bwup', 150000000)
+        nodes[x][2] = node.get('pwup', 0.3)
+        nodes[x][3] = node.get('maxenergy', 75)
+        nodes[x][4] = node.get('ram', 2000)
+        nodes[x][5] = node.get('importance', 1)
+        nodes[x][6] = node.get('pwdown', 0.7)
+        nodes[x][7] = node.get('bwdown', 150000000)
+        nodes[x][8] = node.get('sensingunits', {''})
+        nodes[x][9] = node.get('peripherials', {''})
+        nodes[x][10] = node.get('typecore', 'computing')
+        nodes[x][11] = node.get('location', 'class' + str(x))
+        nodes[x][12] = node.get('owner', 'public')
+        nodes[x][13] = node.get('comcap', {'wlan'})
+        nodes[x][14] = node.get('cores', 2)
+        nodes[x][15] = node.get('percnormal', 30)
+        nodes[x][16] = node.get('percsleeping', 0.01)
     return nodes
+
+
+#percentageCPU ESTÁ MAL
 
 def setterMain(nodes_list, tasks_list):
     nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes = set_problem_size(nodes_list, tasks_list)
