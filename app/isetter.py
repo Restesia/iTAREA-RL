@@ -1,11 +1,11 @@
 from gurobipy import *
 import logging
 
-def set_problem_size(nodes_list, tasks_list):
+nUsers = 1
+nConstraints = 0
+cpuPercentages = 2
 
-    nUsers = 1
-    nConstraints = 0
-    cpuPercentages = 2
+def set_problem_size(nodes_list, tasks_list):
 
     nTask = len(tasks_list) # Number of tasks
     nNodes = len(nodes_list) # Number of nodes that form the infrastructure
@@ -101,7 +101,6 @@ def set_nodes(nNodes, nodes_list):
     return nodes
 
 
-#percentageCPU ESTÁ MAL
 
 def setterMain(nodes_list, tasks_list):
     nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes = set_problem_size(nodes_list, tasks_list)
