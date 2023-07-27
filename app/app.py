@@ -45,23 +45,23 @@ def printValues():
 def add_new_node():
 
     name = request.form['name']
-    cpu = request.form['cpu']
-    bwup = request.form['bwup']
-    pwup = request.form['pwup']
-    maxenergy = request.form['maxenergy']
-    ram = request.form['ram']
-    importance = request.form['importance']
-    pwdown = request.form['pwdown']
-    bwdown = request.form['bwdown']
+    cpu = int(request.form['cpu'])
+    bwup = int(request.form['bwup'])
+    pwup = float(request.form['pwup'])
+    maxenergy = int(request.form['maxenergy'])
+    ram = int(request.form['ram'])
+    importance = int(request.form['importance'])
+    pwdown = float(request.form['pwdown'])
+    bwdown = int(request.form['bwdown'])
     sensingunits = request.form['sensingunits']
     peripherials = request.form['peripherials']
     typecore = request.form['typecore']
     location = request.form['location']
     owner = request.form['owner']
     comcap = request.form['comcap']
-    cores = request.form['cores']
-    percnormal = request.form['percnormal']
-    percsleeping = request.form['percsleeping']
+    cores = int(request.form['cores'])
+    percnormal = float(request.form['percnormal'])
+    percsleeping = float(request.form['percsleeping'])
 
     new_object = {
         'name':name,
@@ -92,16 +92,16 @@ def add_new_node():
 def add_new_task():
 
     taskname = request.form['taskname']
-    cpucycles = request.form['cpucycles']
-    ram = request.form['ram']
-    user = request.form['user']
-    mintransm = request.form['mintransm']
+    cpucycles = int(request.form['cpucycles'])
+    ram = int(request.form['ram'])
+    user = int(request.form['user'])
+    mintransm = int(request.form['mintransm'])
     sensreq = request.form['sensreq']
     periphreq = request.form['periphreq']
     transmit = request.form['transmit']
     exlocation = request.form['exlocation']
     tasktype = request.form['tasktype']
-    disk = request.form['disk']
+    disk = int(request.form['disk'])
 
 
     new_object = {

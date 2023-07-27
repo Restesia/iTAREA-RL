@@ -1,11 +1,11 @@
 from gurobipy import *
 import logging
 
-nUsers = 1
-nConstraints = 0
-cpuPercentages = 2
-
 def set_problem_size(nodes_list, tasks_list):
+
+    nUsers = 1
+    nConstraints = 0
+    cpuPercentages = 2
 
     nTask = len(tasks_list) # Number of tasks
     nNodes = len(nodes_list) # Number of nodes that form the infrastructure
