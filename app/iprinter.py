@@ -1,8 +1,13 @@
 from gurobipy import *
 import re
 
+#SOLVER.STATUS
+#LOADED	    1	Model is loaded, but no solution information is available.
+#OPTIMAL	2	Model was solved to optimality (subject to tolerances), and an optimal solution is available.
+#INFEASIBLE	3	Model was proven to be infeasible.
+
 def printerMain(cpuPercentages, solver):
-    print("")
+    print("solver.status: ",solver.status, "(",solver.status!=3,")")
     if solver.status != 3:
         for v in solver.getVars():
             if v.varName[0:5] == 'ASING' and v.x == 1:
