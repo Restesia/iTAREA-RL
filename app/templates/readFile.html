@@ -7,16 +7,12 @@
 <body>
   <div class="container">
     <h1>Read File</h1>
-    <form action="/upload_file" method="post" enctype="multipart/form-data">
+    <form action="{{ url_for('processAndPrint') }}" method="post" enctype="multipart/form-data">
       <label for="file_input">Select a file:</label>
       <input type="file" id="file_input" name="file_input">
-      <input type="submit" value="Upload">
+      <a class="button left-button" href="{{ url_for('index') }}">Back</a>
+      <input type="submit" class="button right-button" value="Upload and Process">
     </form>
-  </div>
-  <div class="container">
-    <h1>Netx step</h1>
-    <a class="button left-button" href="{{ url_for('index') }}">Get from parameters</a>
-    <a class="button right-button" href="{{ url_for('printValues') }}">Print Values</a>
   </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from gurobipy import *
 
 def energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes):
+    print("energyMain: " ,nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)
 
     communicationCost = solver.addVar(vtype=GRB.CONTINUOUS, name='communicationCost')
     communicationCostDown = solver.addVar(vtype=GRB.CONTINUOUS, name='communicationCostDown')
@@ -25,3 +26,8 @@ def energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, node
 
 if __name__ == "__main__":
     energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)
+
+    #Ejemplo energyMain:
+    # energyMain(1,0,3,3,2, 
+    # <gurobi.Model Continuous instance milp: 0 constrs, 0 vars, Parameter changes: NonConvex=2>, 
+    # [[10000000, 150000000, 0.3, 75, 2000, 1, 0.7, 150000000, {''}, {''}, 'computing', 'class0', 'public', ['wlan'], 2, 30.0, 0.01], [10000000, 150000000, 0.3, 75, 2000, 1, 0.7, 150000000, {''}, {''}, 'computing', 'class1', 'public', ['wlan'], 2, 30.0, 0.01], [10000000, 150000000, 0.3, 75, 2000, 1, 0.7, 150000000, {''}, {''}, 'computing', 'class2', 'public', ['wlan'], 2, 30.0, 0.01]])

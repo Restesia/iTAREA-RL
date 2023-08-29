@@ -14,6 +14,7 @@
         <form id="object-form" action="/add_new_node" method="post">
             <div class="form-row">
             <div class="form-column">
+
                 <label for="name">Name of node</label><br>
                 <input type="text" id="name" name="name" value="-"><br><br>
 
@@ -42,23 +43,25 @@
                 <input type="number" id="bwdown" name="bwdown" value=150000000><br><br>
             </div>
             <div class="form-column">
-                <label for="sensingunits"> Sensing units (e.g., thermomether), '' if any  (bits/s)</label><br>
-                <input type="text" id="sensingunits" name="sensingunits" value="{''}"><br><br>
 
-                <label for="peripherials">Peripherals (e.g., GPU), '' if any</label><br>
-                <input type="text" id="peripherials" name="peripherials" value="{''}"><br><br>
+                
+                <label for="sensingunits"> [Sensing units] (e.g., thermomether), '' if any  (bits/s)</label><br>
+                <input type="text" id="sensingunits" name="sensingunits" value=""><br><br>
+                
+                <label for="peripherials">[Peripherals] (e.g., GPU), '' if any</label><br>
+                <input type="text" id="peripherials" name="peripherials" value=""><br><br>
                 
                 <label for="typecore">Type (e.g., sensing mote)</label><br>
-                <input type="text" id="typecore" name="typecore" value="{'computing'}"><br><br>
-
+                <input type="text" id="typecore" name="typecore" value="computing"><br><br>
+                
                 <label for="location"> Location (e.g., dispatch 2.30) </label><br>
-                <input type="text" id="location" name="location" value="'class'+str(x)"><br><br>
+                <input type="text" id="location" name="location"class="hidden-input"  value="'class'+str(x)"><br><br>
 
                 <label for="owner">Owner (e,g., CAOSD group)</label><br>
                 <input type="text" id="owner" name="owner" value="public"><br><br>
-
-                <label for="comcap">Communication capacities (e.g., wlan)</label><br>
-                <input type="text" id="comcap" name="comcap" value="{'wlan'}"><br><br>
+                
+                <label for="comcap">[Communication capacities] (e.g., wlan)</label><br>
+                <input type="text" id="comcap" name="comcap" value="wlan"><br><br>
 
                 <label for="cores">Number of cores</label><br>
                 <input type="number" id="cores" name="cores" value=2><br><br>

@@ -82,7 +82,7 @@ def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes,
     solver.setObjectiveN(cores, 1, GRB.MINIMIZE)
 
     solver.optimize()
-    print("STATUS: ",solver.status)
+    #print("STATUS: ",solver.status)
     return solver
 
 if __name__ == "__main__":

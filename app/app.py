@@ -1,15 +1,21 @@
-from flask import Flask, render_template, url_for, redirect, request, jsonify
+from flask import Flask, render_template, url_for, redirect, request
 from imain import *
 import subprocess
 import json
 import os
 import datetime
+import cgi
+from proccessor import proccess
 
 app=Flask(__name__)
 nodes_list = []
 tasks_list = []
-route = 'imain.py'
+stringsForm = cgi.FieldStorage()
+
+#---------ROUTES---------
+#route = 'imain.py'
 #route = 'app_metrics/app/imain.py'
+route = 'app/imain.py'
 
 @app.route("/getNodesFromParameters")
 def getNodesFromParameters():
@@ -24,13 +30,13 @@ def readFile():
     # Aquí puedes realizar cualquier lógica adicional que necesites
     return render_template("readFile.html")
 
-@app.route("/printValues")
+@app.route("/printValues") #???
 def printValues():
+    output = loadData(json.dumps(nodes_list), json.dumps(tasks_list))
+    return render_template('printValues.html', result=output)
 
-    nodes_json = json.dumps(nodes_list)
-    tasks_json = json.dumps(tasks_list)
+def loadData(nodes_json, tasks_json): #???
     output=""
-
     try:
         output = subprocess.check_output(['python', route, nodes_json, tasks_json], text=True)
         if not output.strip():  # Verificar si el resultado está vacío
@@ -38,86 +44,64 @@ def printValues():
     except subprocess.CalledProcessError as e:
         print("Error executing imain.py:", e)
         print("Error output:", e.output)
+    return output
+
+@app.route('/processAndPrint', methods=['POST']) #???
+def processAndPrint():
     
+    nodes_json=""
+    tasks_json=""
+    if request.method == 'POST':
+        file = request.files['file_input']
+        if file:
+            nodes_json, tasks_json = proccess(file)
+    
+    output = loadData(nodes_json, tasks_json)
     return render_template('printValues.html', result=output)
+
 
 @app.route('/add_new_node', methods=['POST'])
 def add_new_node():
 
-    name = request.form['name']
-    cpu = int(request.form['cpu'])
-    bwup = int(request.form['bwup'])
-    pwup = float(request.form['pwup'])
-    maxenergy = int(request.form['maxenergy'])
-    ram = int(request.form['ram'])
-    importance = int(request.form['importance'])
-    pwdown = float(request.form['pwdown'])
-    bwdown = int(request.form['bwdown'])
-    sensingunits = request.form['sensingunits']
-    peripherials = request.form['peripherials']
-    typecore = request.form['typecore']
-    location = request.form['location']
-    owner = request.form['owner']
-    comcap = request.form['comcap']
-    cores = int(request.form['cores'])
-    percnormal = float(request.form['percnormal'])
-    percsleeping = float(request.form['percsleeping'])
-
     new_object = {
-        'name':name,
-        'cpu': cpu,
-        'bwup': bwup,
-        'pwup': pwup,
-        'maxenergy':maxenergy,
-        'ram':ram,
-        'importance':importance,
-        'pwdown':pwdown,
-        'bwdown':bwdown,
-        'sensingunits':sensingunits,
-        'peripherials':peripherials,
-        'typecore':typecore,
-        'location':location,
-        'owner':owner,
-        'comcap':comcap,
-        'cores':cores,
-        'percnormal':percnormal,
-        'percsleeping':percsleeping
+        'name':         request.form['name'],
+        'cpu':          int(request.form['cpu']),
+        'bwup':         int(request.form['bwup']),
+        'pwup':         float(request.form['pwup']),
+        'maxenergy':    int(request.form['maxenergy']),
+        'ram':          int(request.form['ram']),
+        'importance':   int(request.form['importance']),
+        'pwdown':       float(request.form['pwdown']),
+        'bwdown':       int(request.form['bwdown']),
+        'sensingunits': (request.form['sensingunits'].split(', ')), #sensingunits = request.form['sensingunits']
+        'peripherials': (request.form['peripherials'].split(', ')), #peripherials = request.form['peripherials']
+        'typecore':     request.form['typecore'],
+        'location':     request.form['location'],
+        'owner':        request.form['owner'],
+        'comcap':       ((request.form['comcap']).split(', ')),
+        'cores':        int(request.form['cores']),
+        'percnormal':   float(request.form['percnormal']),
+        'percsleeping': float(request.form['percsleeping'])
     }
-
     nodes_list.append(new_object)
     #printAll(nodes_list)
     return redirect(url_for('getNodesFromParameters'))
 
 @app.route('/add_new_task', methods=['POST'])
 def add_new_task():
-
-    taskname = request.form['taskname']
-    cpucycles = int(request.form['cpucycles'])
-    ram = int(request.form['ram'])
-    user = int(request.form['user'])
-    mintransm = int(request.form['mintransm'])
-    sensreq = request.form['sensreq']
-    periphreq = request.form['periphreq']
-    transmit = request.form['transmit']
-    exlocation = request.form['exlocation']
-    tasktype = request.form['tasktype']
-    disk = int(request.form['disk'])
-
-
     new_object = {
-        'taskname': taskname,
-        'cpucycles': cpucycles,
-        'ram':ram,
-        'user':user,
-        'mintransm':mintransm,
-        'sensreq':sensreq,
-        'periphreq':periphreq,
-        'transmit':transmit,
-        'exlocation':exlocation,
-        'tasktype':tasktype,
-        'disk':disk,
+        'taskname':     request.form['taskname'],
+        'cpucycles':    int(request.form['cpucycles']),
+        'ram':          int(request.form['ram']),
+        'user':         int(request.form['user']),
+        'mintransm':    int(request.form['mintransm']),
+        'sensreq':      ((request.form['sensreq']).split(', ')), #set() es necesario, pero hace no serializable la app
+        'periphreq':    ((request.form['periphreq']).split(', ')), 
+        'transmit':     ((request.form['transmit']).split(', ')),
+        'exlocation':   request.form['exlocation'],
+        'tasktype':     request.form['tasktype'],
+        'disk':         int(request.form['disk']),
     }
-
     tasks_list.append(new_object)
     #printAll(tasks_list)
     return redirect(url_for('getTasksFromParameters'))
@@ -126,7 +110,6 @@ def printAll(list):
     for elem in list:
         print(elem)
 
-    
 def zip_lists(a, b):
     return zip(a, b)
 
@@ -182,27 +165,6 @@ def saveResult():
         message = f"Error inesperado al guardar el resultado: {str(e)}"
 
     return message
-
-
-@app.route('/upload_file', methods=['POST'])
-def upload_file():
-    if request.method == 'POST':
-        file = request.files['file_input']
-        if file:
-
-            # Procesamiento del archivo cargado (leer el contenido del archivo y hacer algo con él). ¿Pandas?
-            # Puedes utilizar bibliotecas como pandas para procesar archivos CSV.
-            file_content = file.read()
-            
-            # Procesar el contenido del archivo como desees (puedes imprimirlo para verlo en la consola)
-            print("CONTENT:"+"\n")
-            print(file_content)
-
-            # Guardar el contenido del archivo en una lista, diccionario u otra estructura de datos
-
-    return redirect(url_for('index'))  # Redirige de nuevo a la página principal después de procesar el archivo
-
-   
 
 @app.route('/')
 def index():

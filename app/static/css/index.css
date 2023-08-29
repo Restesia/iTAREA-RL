@@ -83,6 +83,12 @@ ol {
   color: white;
   text-decoration: none;
   margin-right: 10px;
+  border-radius: 0;
+  border: none;
+}
+
+.hidden-input {
+  display: none;
 }
 
 .button:hover {
@@ -91,10 +97,14 @@ ol {
 
 .left-button {
   float: left;
+  border-radius: 0;
+  border: none;
 }
 
 .right-button {
   float: right;
+  border-radius: 0;
+  border: none;
 }
 
 .node-item {

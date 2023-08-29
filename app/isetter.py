@@ -45,9 +45,11 @@ def set_tasks(nTask, tasks_list):
         tasks[x][1] = task.get('ram', 150)
         tasks[x][2] = task.get('user', 0)
         tasks[x][3] = task.get('mintransm', 0)
-        tasks[x][4] = task.get('sensreq', {''})
-        tasks[x][5] = task.get('periphreq', {''})
-        tasks[x][6] = task.get('transmit', {})
+
+        tasks[x][4] = {''}#task.get('sensreq', {''})
+        
+        tasks[x][5] = {''}#task.get('periphreq', {''})
+        tasks[x][6] = {}#task.get('transmit', {})
         tasks[x][7] = task.get('exlocation', 'none')
         tasks[x][8] = task.get('tasktype', 'computing')
         tasks[x][9] = task.get('disk', 100)
@@ -89,12 +91,18 @@ def set_nodes(nNodes, nodes_list):
         nodes[x][5] = node.get('importance', 1)
         nodes[x][6] = node.get('pwdown', 0.7)
         nodes[x][7] = node.get('bwdown', 150000000)
-        nodes[x][8] = node.get('sensingunits', {''})
-        nodes[x][9] = node.get('peripherials', {''})
+
+        nodes[x][8] = {''}#node.get('sensingunits', {''})
+        nodes[x][9] = {''}#node.get('peripherials', {''})
+
         nodes[x][10] = node.get('typecore', 'computing')
-        nodes[x][11] = node.get('location', 'class' + str(x))
+
+        nodes[x][11] = 'class' + str(x)#node.get('class' + str(x))
+        
         nodes[x][12] = node.get('owner', 'public')
+
         nodes[x][13] = node.get('comcap', {'wlan'})
+        
         nodes[x][14] = node.get('cores', 2)
         nodes[x][15] = node.get('percnormal', 30)
         nodes[x][16] = node.get('percsleeping', 0.01)

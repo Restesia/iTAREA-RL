@@ -7,7 +7,7 @@ import re
 #INFEASIBLE	3	Model was proven to be infeasible.
 
 def printerMain(cpuPercentages, solver):
-    print("solver.status: ",solver.status, "(",solver.status!=3,")")
+   #print("solver.status: ",solver.status, "(",solver.status!=3,")")
     if solver.status != 3:
         for v in solver.getVars():
             if v.varName[0:5] == 'ASING' and v.x == 1:
