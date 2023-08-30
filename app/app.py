@@ -51,14 +51,20 @@ def processAndPrint():
     
     nodes_json=""
     tasks_json=""
+    output=""
+
     if request.method == 'POST':
         file = request.files['file_input']
         if file:
-            nodes_json, tasks_json = proccess(file)
-    
-    output = loadData(nodes_json, tasks_json)
+            try:
+                nodes_json, tasks_json = proccess(file)
+                output = loadData(nodes_json, tasks_json)
+            except json.JSONDecodeError as json_error:
+                error_message = f"Error decoding JSON: {json_error}"
+                return render_template('printValues.html', result=error_message)
+            except Exception as e:
+                return render_template('printValues.html', result=str(e)) 
     return render_template('printValues.html', result=output)
-
 
 @app.route('/add_new_node', methods=['POST'])
 def add_new_node():

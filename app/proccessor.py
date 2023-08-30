@@ -10,7 +10,7 @@ def classifyAndGetData(file_content, file_extension):
     # Identificar el tipo
     if(file_extension=="json"): return json_read(file_content)    
     if(file_extension=="txt"):  return txt_read(file_content)
-    if(file_extension=="py"):   return "",""
+    if(file_extension=="py"):   return python_read(file_content)
     else: return "",""
 
 #---------------------------------------------------
@@ -21,7 +21,7 @@ def json_read(file_content):
 
     lines = file_content.strip().split('\n')
 
-    for line in lines:
+    for line_number, line in enumerate(lines, start=1):
         data = json.loads(line)
         if "name" in data and "cpu" in data:
             nodes_json.append(data)
@@ -35,17 +35,10 @@ def json_read(file_content):
 
 
 def txt_read(file_content):
+    return json_read(file_content)
 
-    #get nodes and tasks lists
-
-    #jsonify
-    json.dumps(nodes_list)
-    json.dumps(tasks_list)
-
-    
-    nodes_list = ""
-    tasks_list = ""
-    return nodes_json, tasks_json
+def python_read(file_content):
+    return json_read(file_content)
 
 def getContentAndExtension(file):
     file_content = (file.read()).decode('utf-8')                #STRING
