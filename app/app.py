@@ -27,7 +27,6 @@ def getTasksFromParameters():
 
 @app.route("/readFile")
 def readFile():
-    # Aquí puedes realizar cualquier lógica adicional que necesites
     return render_template("readFile.html")
 
 @app.route("/printValues")
@@ -36,11 +35,11 @@ def printValues():
     return render_template('printValues.html', result=output, determine_back_route=determine_back_route)
 
 
-def loadData(nodes_json, tasks_json): #???
+def loadData(nodes_json, tasks_json):
     output=""
     try:
         output = subprocess.check_output(['python', route, nodes_json, tasks_json], text=True)
-        if not output.strip():  # Verificar si el resultado está vacío
+        if not output.strip(): 
             output = "No result"
     except subprocess.CalledProcessError as e:
         print("Error executing imain.py:", e)
