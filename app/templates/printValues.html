@@ -28,6 +28,8 @@
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        
     }
     
     </script>
@@ -51,7 +53,7 @@
     </div>
 
     <div class="container">
-        <a class="button left-button" href="{{ url_for('getTasksFromParameters') }}">back</a>
+        <a class="button left-button" href="{{ url_for(determine_back_route()) }}">back</a>
         <a class="button right-button" href="{{ url_for('index') }}">restart</a>
     </div>
 </body>

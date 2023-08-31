@@ -13,9 +13,9 @@ tasks_list = []
 stringsForm = cgi.FieldStorage()
 
 #---------ROUTES---------
-#route = 'imain.py'
+route = 'imain.py' #TRABAJO
 #route = 'app_metrics/app/imain.py'
-route = 'app/imain.py'
+#route = 'app/imain.py' #PERSONAL
 
 @app.route("/getNodesFromParameters")
 def getNodesFromParameters():
@@ -30,10 +30,11 @@ def readFile():
     # Aquí puedes realizar cualquier lógica adicional que necesites
     return render_template("readFile.html")
 
-@app.route("/printValues") #???
+@app.route("/printValues")
 def printValues():
     output = loadData(json.dumps(nodes_list), json.dumps(tasks_list))
-    return render_template('printValues.html', result=output)
+    return render_template('printValues.html', result=output, determine_back_route=determine_back_route)
+
 
 def loadData(nodes_json, tasks_json): #???
     output=""
@@ -46,7 +47,7 @@ def loadData(nodes_json, tasks_json): #???
         print("Error output:", e.output)
     return output
 
-@app.route('/processAndPrint', methods=['POST']) #???
+@app.route('/processAndPrint', methods=['POST'])
 def processAndPrint():
     
     nodes_json=""
@@ -61,10 +62,10 @@ def processAndPrint():
                 output = loadData(nodes_json, tasks_json)
             except json.JSONDecodeError as json_error:
                 error_message = f"Error decoding JSON: {json_error}"
-                return render_template('printValues.html', result=error_message)
+                return render_template('printValues.html', result=error_message, determine_back_route=determine_back_route)
             except Exception as e:
-                return render_template('printValues.html', result=str(e)) 
-    return render_template('printValues.html', result=output)
+                return render_template('printValues.html', result=str(e), determine_back_route=determine_back_route) 
+    return render_template('printValues.html', result=output, determine_back_route=determine_back_route)
 
 @app.route('/add_new_node', methods=['POST'])
 def add_new_node():
@@ -118,6 +119,15 @@ def printAll(list):
 
 def zip_lists(a, b):
     return zip(a, b)
+
+def determine_back_route():
+    current_path = request.referrer
+    if current_path.endswith('getTasksFromParameters'):
+        return 'getTasksFromParameters'  # Nombre de la función para entertasks.html
+    elif current_path.endswith('readFile'):
+        return 'readFile'  # Nombre de la función para readfile.html
+    else:
+        return 'index'  # Nombre de la función para la página de inicio
 
 @app.route('/delete_node', methods=['POST'], )
 def delete_node():
@@ -183,8 +193,7 @@ def index():
     #    'list_length':len(example_list)
     #}
 
-    return render_template('index.html'
-                           #, data=data
+    return render_template('index.html' #, data=data
                            )
 
 if __name__=='__main__':
