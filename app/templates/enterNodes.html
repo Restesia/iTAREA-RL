@@ -79,19 +79,23 @@
         </form>
 
          <!--SEE NODES LIST-->
-        <h2>Nodes list:</h2>
-        <ol>
-            {% for node in nodes_list %}
-                <li class="node-item">
-                    <div class="node-text">{{ node }}</div>
-                    <form class="delete-form" action="/delete_node" method="post">
-                        <input type="hidden" name="index" value="{{ loop.index0 }}">
-                        <input type="submit" value="Delete">
-                    </form>
-                </li>
-                <br>
-            {% endfor %}
-        </ol>
+         <div class="node-list">
+            <h2>Nodes list:</h2>
+            <ol>
+                {% for node in nodes_list %}
+                    <li class="node-item">
+                        <div class="list-item-container">
+                            <div class="node-text">{{ node }}</div>
+                            <form class="delete-form" action="/delete_node" method="post">
+                                <input type="hidden" name="index" value="{{ loop.index0 }}">
+                                <input type="submit" value="Delete">
+                            </form>
+                        </div>
+                    </li>
+                    <br>
+                {% endfor %}
+            </ol>
+        </div>
 
     </div>
 

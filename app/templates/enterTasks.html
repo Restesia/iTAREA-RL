@@ -62,19 +62,21 @@
 
          <!--SEE TASK LIST-->
         
-        <h2>Tasks list:</h2>
-        <ol>
-            {% for task in tasks_list %}
-                <li class="task-item">
-                    <div class="task-text">{{ task }}</div>
-                    <form class="delete-form" action="/delete_task" method="post">
-                        <input type="hidden" name="index" value="{{ loop.index0 }}">
-                        <input type="submit" value="Delete">
-                    </form>
-                </li>
-                <br>
-            {% endfor %}
-        </ol>
+         <h2>Tasks list:</h2>
+         <ol>
+             {% for task in tasks_list %}
+                 <li class="task-item">
+                     <div class="list-item-container">
+                         <div class="task-text">{{ task }}</div>
+                         <form class="delete-form" action="/delete_task" method="post">
+                             <input type="hidden" name="index" value="{{ loop.index0 }}">
+                             <input type="submit" value="Delete">
+                         </form>
+                     </div>
+                 </li>
+                 <br>
+             {% endfor %}
+         </ol>
     
 
     </div>
