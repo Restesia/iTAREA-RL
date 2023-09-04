@@ -1,4 +1,5 @@
 from gurobipy import *
+from gurobipy import Model, GRB
 import logging
 
 def set_problem_size(nodes_list, tasks_list):
@@ -121,4 +122,5 @@ def setterMain(nodes_list, tasks_list):
 
 
 if __name__ == "__main__":
+    from imain import nodes_list, tasks_list
     setterMain(nodes_list, tasks_list)

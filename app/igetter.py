@@ -89,23 +89,20 @@ def set_tasks () :
 			]
 			tasks.append(task_data)
 
-###
+
 ### Método que asigna el rtt, para conseguir el objetivo de reducir latencia
-###
 def set_rtt ():
 
 	# Round trip time (s) between nodes. e.g., RTT between node 0 and 1: rtt[0][1]
 	rtt = [ [ 0.01 for c in range(nNodes) ] 
 			for r in range(nNodes) ]
 
-###
+
 ### Método análogo al de las tareas, habría que conseguir que en este se crearan los nodos en base 
 ### al número de nodos y sus características dentro del clúster de kubernetes
-###
 def set_nodes ():
 
 # Defining each node that forms the infrastructure
-
 # 0 - CPU (cycles per second)
 # 1 - Bandwidth up (bits/s)
 # 2 - Power Upload (Ptx), 

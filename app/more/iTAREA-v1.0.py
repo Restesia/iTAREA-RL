@@ -1,4 +1,5 @@
 from gurobipy import *
+from gurobipy import Model, GRB, quicksum
 nUsers = None
 nConstraints = None
 nTask = None
@@ -10,10 +11,7 @@ nodes = None
 relation = None
 rtt = None
 
-
-###
 ### Método que crea el problema: principalmente definimos la matriz de tareas y de nodos con sus características.
-###
 def set_problem_size ():
 	global nUsers
 	global nConstraints
@@ -38,10 +36,9 @@ def set_problem_size ():
 	nodes = [ [ 0 for c in range(17) ] 
 	      for r in range(nNodes) ]
 
-###
+
 ### Este método crea una matriz con los datos que se intercambian entre las tareas, 
 ### es decir, para la casilla i,j el valor es X, la tarea i manda X bits a la tarea J 
-###
 def set_data_to_transmit ():
 	global relation
 	# Data to be transmitted between tasks (bits)
@@ -51,11 +48,9 @@ def set_data_to_transmit ():
 	#Example: task 0 sends to task 1 1000 bits
       #relation[0][1] = 1000
 
-###
 ### Matriz placeholder de tareas
 ### Si se quisiera implementar de forma real con planetarium este método de alguna forma tendría que recoger los datos de las tareas
 ### y debería aquí realizarse la creación de la matriz con el número de tareas a asignar
-###
 def set_tasks () :
 # Defining each task that forms the application:
 
@@ -84,19 +79,15 @@ def set_tasks () :
 		tasks[x][9] = 100
 		tasks[x][10] = 'name'
 
-###
 ### Método que asigna el rtt, para conseguir el objetivo de reducir latencia
-###
 def set_rtt ():
 
 	# Round trip time (s) between nodes. e.g., RTT between node 0 and 1: rtt[0][1]
 	rtt = [ [ 0.01 for c in range(nNodes) ] 
 			for r in range(nNodes) ]
 
-###
 ### Método análogo al de las tareas, habría que conseguir que en este se crearan los nodos en base 
 ### al número de nodos y sus características dentro del clúster de kubernetes
-###
 def set_nodes ():
 
 # Defining each node that forms the infrastructure
@@ -138,9 +129,7 @@ def set_nodes ():
 		nodes[x][15] = 30
 		nodes[x][16] = 0.01
 
-###
 ### Este método es el más importante, hace uso de la sintaxis de gurobi para plantear el problema de optimización
-###
 def solve ():
 	# Defining problem variables to optimize
 
@@ -200,24 +189,19 @@ def solve ():
 
 	### Especificamos las fórmulas para calcular los tiempos y costes energéticos de comunicación y computación
 
-	#####
-	#####
 	##### NOTA: La integración del modelo de aprendizaje automático predictor de energía se realizaría aquí
 	##### Los costes de computación y comunicación en vez de utilizar la fórmula especificada, se convertirían en una llamada al modelo de predicción.
 	##### Deberíamos tener una matriz con el consumo de las n tareas en los m nodos, para poder calcular el mínimo
-	#####
-	#####
+
 	for c in range(nConstraints):
 
 		solver.addConstr( communicationTime == quicksum(quicksum(quicksum(assignment[constraints[c][i]][m]*(1-assignment[constraints[c][j]][m])*(((relation[constraints[c][i]][constraints[c][j]]*1000000)/nodes[m][1])+(rtt[0][0]*1000000)) for j in range(2, 2 + constraints[c][1]))  for i in range(2, 2 + constraints[c][1]))  for m in range(nNodes)))
 		solver.addConstr( computationTime == quicksum(quicksum((assignment[constraints[c][i]][m]*((tasks[constraints[c][i]][0]*1000000)*(percentageCPUaux[m][constraints[c][i]])*nodes[m][14]*cpuPercentages))/nodes[m][0] for i in range(2, 2 + constraints[c][1]))  for m in range(nNodes)))
 		solver.addConstr( (computationTime + communicationTime) <= (constraints[c][0]*1000000))
 
-	#####
-	#####
+
 	##### Sería cambiar estas 3 líneas por algo como
 	##### totalCost == quicksum(quicksum(assignment[i][m]* calcularEnergía(i,m) for i in range(nTask)) for m in range (nNodes)))
-	#####
 
 	solver.addConstr(communicationCost ==  quicksum(quicksum(quicksum(assignment[i][m]*(1-assignment[j][m])*(nodes[m][2]*(relation[i][j]/nodes[m][1])*nodes[m][5]) for j in range(nTask)) for i in range(nTask)) for m in range(nNodes)))
 	solver.addConstr(computationCost ==  quicksum(quicksum(assignment[i][m]*((100-nodes[m][15])/100) * nodes[m][3] * ((tasks[i][0]*10000)/nodes[m][0]) for i in range(nTask)) for m in range (nNodes)))
@@ -253,6 +237,3 @@ if __name__ == "__main__":
 	set_tasks ()
 	set_rtt ()
 	solve ()
-
-
-
