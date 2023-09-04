@@ -1,5 +1,6 @@
 from gurobipy import *
 from gurobipy import quicksum
+from gurobipy import GRB
 import re
 
 def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
