@@ -1,6 +1,6 @@
 import json
 
-#MAIN METHOD: RECEIVES DATA STORAGE, RETURNS TWO JSON STRINGS
+#MAIN METHOD: RECEIVES DATA STORAGE, RETURNS TWO JSON STRINGS (NODES AND TASKS)
 def proccess(file):
     file_content, file_extension = getContentAndExtension(file)
     nodes_list, tasks_list = classifyAndGetData(file_content, file_extension)
@@ -45,8 +45,8 @@ def getContentAndExtension(file):
     file_extension = (file.filename).rsplit('.', 1)[-1].lower() #STRING
     return file_content, file_extension
 
-#PRUEBAS
+#TESTNG
 if __name__ == "__main__":
-    str = "HOLA"
+    str = "HELLO WORLD"
     fe = "py"
     classifyAndGetData(str, fe)
