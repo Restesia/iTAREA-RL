@@ -7,7 +7,6 @@
    
     <script>
 
-        //cambio
 
         var resultData = `{{ result | tojson | safe }}`;
 
@@ -34,14 +33,6 @@
     
     </script>
     
- 
-    <script>
-        function saveFile() {
-            var form = document.getElementById("saveForm");
-            form.submit();
-        }
-    </script>
-
 
 </head>
 <body>
@@ -49,7 +40,7 @@
     <pre>{{ result }}</pre>
 
     <div class="container">
-        <button class="button" id="save-button">Save</button>
+        <button class="button" id="save-button" onclick='saveFile()'>Save</button>
     </div>
 
     <div class="container">
