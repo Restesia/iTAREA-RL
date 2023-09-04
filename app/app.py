@@ -54,7 +54,7 @@ def add_new_node():
         'sensingunits': (request.form['sensingunits'].split(', ')), #sensingunits = request.form['sensingunits']
         'peripherials': (request.form['peripherials'].split(', ')), #peripherials = request.form['peripherials']
         'typecore':     request.form['typecore'],
-        'location':     request.form['location'],
+        # 'location':     request.form['location'],
         'owner':        request.form['owner'],
         'comcap':       ((request.form['comcap']).split(', ')),
         'cores':        int(request.form['cores']),

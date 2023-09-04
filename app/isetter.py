@@ -97,7 +97,7 @@ def set_nodes(nNodes, nodes_list):
 
         nodes[x][10] = node.get('typecore', 'computing')
 
-        nodes[x][11] = 'class' + str(x)#node.get('class' + str(x))
+        nodes[x][11] = 'class' + str(x) #node.get('class' + str(x))
         
         nodes[x][12] = node.get('owner', 'public')
 

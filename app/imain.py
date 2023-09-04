@@ -14,11 +14,17 @@ def getLists(json_nodes_list , json_tasks_list):
     tasks_list = json.loads(json_tasks_list)
     return nodes_list,tasks_list
 
+def convertListsToSetsFromMap(myList):
+    for i in range(len(myList)):
+        if isinstance(myList[i], list):
+            myList[i] = set(myList[i])
 
 if __name__ == "__main__":
 
     # 1. Rescatar las listas
     nodes_list, tasks_list = getLists(sys.argv[1], sys.argv[2])
+    convertListsToSetsFromMap(nodes_list)
+    convertListsToSetsFromMap(tasks_list)
     #res = "NODES: " + str(nodes_list) + "\nTASKS: " + str(tasks_list) + "\n"  + "\n"
     
     # 2. Obtener los valores
