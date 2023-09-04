@@ -47,9 +47,9 @@ def set_tasks(nTask, tasks_list):
         tasks[x][2] = task.get('user', 0)
         tasks[x][3] = task.get('mintransm', 0)
         
-        tasks[x][4] = set(task.get('sensreq', set()))       #DOES NOT WORK
-        tasks[x][5] = set(task.get('periphreq', set()))     #DOES NOT WORK 
-        tasks[x][6] = set(task.get('transmit', set()))      #DOES NOT WORK
+        tasks[x][4] = set()#set(task.get('sensreq', set()))       #DOES NOT WORK
+        tasks[x][5] = set()#set(task.get('periphreq', set()))     #DOES NOT WORK 
+        tasks[x][6] = set()#set(task.get('transmit', set()))      #DOES NOT WORK
 
         tasks[x][7] = task.get('exlocation', 'none')
         tasks[x][8] = task.get('tasktype', 'computing')
