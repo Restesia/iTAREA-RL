@@ -1,4 +1,5 @@
 from gurobipy import *
+from gurobipy import quicksum
 import re
 
 def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
@@ -86,4 +87,5 @@ def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes,
     return solver
 
 if __name__ == "__main__":
+    from imain import tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver
     solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver)

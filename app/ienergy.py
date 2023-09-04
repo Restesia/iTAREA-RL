@@ -1,4 +1,5 @@
 from gurobipy import *
+from gurobipy import GRB
 
 def energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes):
     print("energyMain: " ,nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)
@@ -25,6 +26,8 @@ def energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, node
     return communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints
 
 if __name__ == "__main__":
+
+    from imain import nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes
     energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)
 
     #Ejemplo energyMain:

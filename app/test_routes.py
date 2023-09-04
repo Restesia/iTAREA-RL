@@ -1,11 +1,10 @@
 import sys
-
-import pytest
+# import pytest
 
 from app import app
 
 
-@pytest.fixture
+# @pytest.fixture
 def client():
     """Crea un cliente de prueba para la aplicación Flask."""
     app.config['TESTING'] = True
