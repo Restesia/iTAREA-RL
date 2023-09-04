@@ -1,5 +1,5 @@
 from gurobipy import *
-from gurobipy import Model, GRB, quicksum
+from gurobipy import Model, GRB, quicksum, re
 nUsers = None
 nConstraints = None
 nTask = None

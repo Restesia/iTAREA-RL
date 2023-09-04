@@ -19,8 +19,6 @@ convertListsToSetsFromMap(myList1)
 mySet = myList1
 
 
-
-
 #TEST
 print("LIST:", myList1)
 print("JSON:", myJsonString)

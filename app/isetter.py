@@ -46,16 +46,21 @@ def set_tasks(nTask, tasks_list):
         tasks[x][1] = task.get('ram', 150)
         tasks[x][2] = task.get('user', 0)
         tasks[x][3] = task.get('mintransm', 0)
-
-        tasks[x][4] = {''}#task.get('sensreq', {''})
         
-        tasks[x][5] = {''}#task.get('periphreq', {''})
-        tasks[x][6] = {}#task.get('transmit', {})
+        tasks[x][4] = set(task.get('sensreq', set()))       #DOES NOT WORK
+        tasks[x][5] = set(task.get('periphreq', set()))     #DOES NOT WORK 
+        tasks[x][6] = set(task.get('transmit', set()))      #DOES NOT WORK
+
         tasks[x][7] = task.get('exlocation', 'none')
         tasks[x][8] = task.get('tasktype', 'computing')
         tasks[x][9] = task.get('disk', 100)
         tasks[x][10] = task.get('taskname', 'name')
     return tasks
+
+def convertListsToSetsFromMap(myList):
+    for i in range(len(myList)):
+        if isinstance(myList[i], list):
+            myList[i] = set(myList[i])
 
 
 def set_rtt(nNodes):
