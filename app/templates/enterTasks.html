@@ -11,54 +11,77 @@
 
     <!--SET A TASK-->
     <div class="container">
-        <h1>Set the tasks</h1>
 
-        <form action="/add_new_task" method="post">
+        <form id="object-form" action="/add_new_task" method="post" class="p-3 mb-2 bg-light">
+            <h1>Set the tasks</h1>
 
-            <label for="taskname">Task name</label><br>
-            <input type="text" id="taskname" name="taskname" value="name"><br><br>
+            <div class="row"> 
+                <div class="col-md-4">
+                    <label for="taskname">Task name</label><br>
+                    <input type="text" id="taskname" name="taskname" value="name"><br><br>
 
-            <div class="form-row">
-            <div class="form-column">
+                    <label for="cpucycles">CPU cycles</label><br>
+                    <input type="number" id="cpucycles" name="cpucycles" value="150000"><br><br>
 
-                <label for="cpucycles">CPU cycles</label><br>
-                <input type="number" id="cpucycles" name="cpucycles" value="150000"><br><br>
+                    <label for="ram">RAM required (mb)</label><br>
+                    <input type="number" id="ram" name="ram" value="150"><br><br>
 
-                <label for="ram">RAM required (mb)</label><br>
-                <input type="number" id="ram" name="ram" value="150"><br><br>
+                    <label for="user">User</label><br>
+                    <input type="number" id="user" name="user" value="0"><br><br>
+                    
+                    
 
-                <label for="user">User</label><br>
-                <input type="number" id="user" name="user" value="0"><br><br>
+                </div>
+                <div class="col-md-4">
+                    
+                    <label for="mintransm">Minimal transmission (e.g., for video streaming in a specific quality) </label><br>
+                    <input type="number" id="mintransm" name="mintransm" value="0"><br><br>
+            
+                    
+                    <!-- Checkbox Sensing requirements -->
+                    <div class="container">
+                        <label for="sensreq">Sensing requirements (e.g., thermometer)</label><br>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="thermometer" name="srq" value="thermometer">
+                            <label class="form-check-label" for="thermometer">Thermometer</label>
+                        </div>
+                        <input type="hidden" class="text" id="sensreq" name="sensreq" value="" readonly>
+                    </div>
+
+                    <!-- Peripheral requirements -->
+                    <div class="container">
+                        <label for="periphreq">Peripheral requirements (e.g., camera, GPU)</label><br>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="camera" name="prq" value="camera">
+                            <label class="form-check-label" for="camera">Camera</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="gpu" name="prq" value="gpu">
+                            <label class="form-check-label" for="gpu">GPU</label>
+                        </div>
+                        <input type="hidden" class="text" id="periphreq" name="periphreq" value="" readonly>
+                    </div>
+
+                    <label for="transmit">Transmit</label><br>
+                    <input type="text" id="transmit" name="transmit" value=""><br><br>
                 
-                <label for="mintransm">Minimal transmission (e.g., for video streaming in a specific quality) </label><br>
-                <input type="number" id="mintransm" name="mintransm" value="0"><br><br>
-        
-                <label for="sensreq">Sensing requirements (e.g., thermometer)</label><br>
-                <input type="text" id="sensreq" name="sensreq" value=""><br><br>
+                </div>
+                <div class="col-md-4">
 
+                    <label for="exlocation">Exact location (in case the app is located in a specific place; e.g., dispatch 4.1) </label><br>
+                    <input type="text" id="exlocation" name="exlocation" value="none"><br><br>
+
+                    <label for="tasktype">Type (e.g., sensing mote)</label><br>
+                    <input type="text" id="tasktype" name="tasktype" value="computing"><br><br>
+
+                    <label for="disk">Disk required (Mb)</label><br>
+                    <input type="number" id="disk" name="disk" value="100"><br><br>
                 
-            </div>
-            <div class="form-column">
-
-                <label for="periphreq">Peripheral requirements (e.g., camera, GPU)</label><br>
-                <input type="text" id="periphreq" name="periphreq" value=""><br><br>
-
-                <label for="transmit">Transmit</label><br>
-                <input type="text" id="transmit" name="transmit" value=""><br><br>
-
-                <label for="exlocation">Exact location (in case the app is located in a specific place; e.g., dispatch 4.1) </label><br>
-                <input type="text" id="exlocation" name="exlocation" value="none"><br><br>
-
-                <label for="tasktype">Type (e.g., sensing mote)</label><br>
-                <input type="text" id="tasktype" name="tasktype" value="computing"><br><br>
-
-                <label for="disk">Disk required (Mb)</label><br>
-                <input type="number" id="disk" name="disk" value="100"><br><br>
-                
-            </div>
+                </div>
+                <input type="submit" value="Submit">
             </div>
             
-            <input type="submit" value="Submit">
+            
         </form>
 
          <!--SEE TASK LIST-->
@@ -86,6 +109,35 @@
         <a class="button left-button" href="{{ url_for('loadNodesTemplate') }}">back</a>
         <a class="button right-button" href="{{ url_for('printValues') }}">next</a>
     </div>
+
+    <script>
+        function actualizarListas(nombreCampo, nombreCheckbox) {
+            var elementos = [];
+            var checkboxes = document.querySelectorAll('input[name="' + nombreCheckbox + '"]:checked');
+            checkboxes.forEach(function(checkbox) {
+                elementos.push(checkbox.value);
+            });
+            // Actualizar el campo de texto con la lista de elementos seleccionados separados por comas
+            document.getElementById(nombreCampo).value = elementos.join(', ');
+        }
+    
+        // Agregar un evento para ambas categorías de checkboxes
+        var checkboxes = document.querySelectorAll('input[name="srq"], input[name="prq"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                if (this.name === 'srq') {
+                    actualizarListas('sensreq', 'srq');
+                } else if (this.name === 'prq') {
+                    actualizarListas('periphreq', 'prq');
+                }
+            });
+        });
+    
+        // Llamar a actualizarListas inicialmente para asegurarse de que los campos de texto se llenen correctamente si se seleccionan elementos por defecto
+        actualizarListas('sensreq', 'srq');
+        actualizarListas('peripherials', 'peripherial');
+        
+    </script>  
     
 </body>
 </html>

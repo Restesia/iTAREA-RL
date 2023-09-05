@@ -16,7 +16,7 @@
             <div class="row"> 
                 <div class="col-md-4">
                     <label for="name">Name of node</label><br>
-                    <input type="text" id="name" name="name" value="-"><br><br>
+                    <input type="text" id="name" name="name" value="name"><br><br>
 
                     <label for="cpu">CPU (cycles per second)</label><br>
                     <input type="number" id="cpu" name="cpu" value=10000000><br><br>
@@ -49,22 +49,25 @@
                     <div class="container">
                         <label for="sensingunits"> Sensing units (e.g., thermomether), '' if any  (bits/s)</label><br>
                         <div class="form-check form-check-inline">
-                            <input type="checkbox" class="form-check-input" id="camera" name="sensingunit" value="camera">
-                            <label class="form-check-label" for="camera">Camera</label>
-                        </div>
-                        <div class="form-check form-check-inline">
                             <input type="checkbox" class="form-check-input" id="thermometer" name="sensingunit" value="thermometer">
                             <label class="form-check-label" for="thermometer">Thermometer</label>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input type="checkbox" class="form-check-input" id="otros" name="sensingunit" value="otros">
-                            <label class="form-check-label" for="otros">Otros</label>
-                        </div>
-                        <input type="hidden" class="hidden" id="sensingunits" name="sensingunits" readonly>
+                        <input type="hidden" id="sensingunits" name="sensingunits" value="" readonly>
                     </div>
 
-                    <label for="peripherials">Peripherals (e.g., GPU), '' if any</label><br>
-                    <input type="text" id="peripherials" name="peripherials" value=""><br><br>
+                    <!-- Checkbox peripherials -->
+                    <div class="container">
+                        <label for="peripherials">Peripherals (e.g., GPU), '' if any</label><br>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="camera" name="peripherial" value="camera">
+                            <label class="form-check-label" for="camera">Camera</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="gpu" name="peripherial" value="gpu">
+                            <label class="form-check-label" for="gpu">GPU</label>
+                        </div>
+                        <input type="hidden" class="text" id="peripherials" name="peripherials" value="" readonly>
+                    </div>
 
                 </div>
 
@@ -120,26 +123,33 @@
     </div>
 
     <script>
-        // Función para actualizar la lista de elementos seleccionados
-        function actualizarLista() {
-            var elementosSeleccionados = [];
-            var checkboxes = document.querySelectorAll('input[name="sensingunit"]:checked');
+        function actualizarListas(nombreCampo, nombreCheckbox) {
+            var elementos = [];
+            var checkboxes = document.querySelectorAll('input[name="' + nombreCheckbox + '"]:checked');
             checkboxes.forEach(function(checkbox) {
-                elementosSeleccionados.push(checkbox.value);
+                elementos.push(checkbox.value);
             });
             // Actualizar el campo de texto con la lista de elementos seleccionados separados por comas
-            document.getElementById('sensingunits').value = elementosSeleccionados.join(', ');
+            document.getElementById(nombreCampo).value = elementos.join(', ');
         }
     
-        // Agregar un event listener a cada checkbox para actualizar la lista cuando cambie su estado
-        var checkboxes = document.querySelectorAll('input[name="sensingunit"]');
+        // Agregar un evento para ambas categorías de checkboxes
+        var checkboxes = document.querySelectorAll('input[name="sensingunit"], input[name="peripherial"]');
         checkboxes.forEach(function(checkbox) {
-            checkbox.addEventListener('change', actualizarLista);
+            checkbox.addEventListener('change', function() {
+                if (this.name === 'sensingunit') {
+                    actualizarListas('sensingunits', 'sensingunit');
+                } else if (this.name === 'peripherial') {
+                    actualizarListas('peripherials', 'peripherial');
+                }
+            });
         });
     
-        // Llamar a actualizarLista inicialmente para asegurarse de que el campo de texto se llene correctamente si se seleccionan elementos por defecto
-        actualizarLista();
-    </script>
+        // Llamar a actualizarListas inicialmente para asegurarse de que los campos de texto se llenen correctamente si se seleccionan elementos por defecto
+        actualizarListas('sensingunits', 'sensingunit');
+        actualizarListas('peripherials', 'peripherial');
+        
+    </script>  
     
 </body>
 </html>
