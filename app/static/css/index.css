@@ -66,6 +66,8 @@ label {
   margin-bottom: 10px;
 }
 
+
+
 /* Botones */
 input[type="text"],
 input[type="number"] {
@@ -167,6 +169,26 @@ ol {
   font-weight: bold;
   text-transform: uppercase;
 }
+
+/* Estilos para checkboxes */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.checkbox-group label {
+  margin-bottom: 5px;
+}
+
+
+
+
+
 
 /* Fuentes */
 @import url("../fonts/octin_sports_rg.ttf");
