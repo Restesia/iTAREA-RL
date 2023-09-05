@@ -19,8 +19,7 @@ convertListsToSetsFromMap(myList1)
 mySet = myList1
 
 #EMPTY SET
-emptySet = set()
-emptySet.add("")
+
 
 #SET
 #fullSet =  set(myList1.get(emptySet, set())) 
