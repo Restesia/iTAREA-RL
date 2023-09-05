@@ -38,19 +38,19 @@ def set_data_to_transmit(nTask):
 # 10 - Task name
 
 def set_tasks(nTask, tasks_list):
+
     tasks = [[0 for _ in range(11)] for _ in range(nTask)]
-    
+    emptySet = createEmpty()
+
     for x in range(nTask):
         task = tasks_list[x]  # Obtener el diccionario que representa la tarea
         tasks[x][0] = task.get('cpucycles', 150000)
         tasks[x][1] = task.get('ram', 150)
         tasks[x][2] = task.get('user', 0)
         tasks[x][3] = task.get('mintransm', 0)
-        
-        tasks[x][4] = set()#set(task.get('sensreq', set()))       #DOES NOT WORK
-        tasks[x][5] = set()#set(task.get('periphreq', set()))     #DOES NOT WORK 
-        tasks[x][6] = set()#set(task.get('transmit', set()))      #DOES NOT WORK
-
+        tasks[x][4] = set(task.get('sensreq', emptySet))       
+        tasks[x][5] = set(task.get('periphreq', emptySet))     
+        tasks[x][6] = set(task.get('transmit', emptySet))      
         tasks[x][7] = task.get('exlocation', 'none')
         tasks[x][8] = task.get('tasktype', 'computing')
         tasks[x][9] = task.get('disk', 100)
@@ -86,7 +86,10 @@ def set_rtt(nNodes):
 # 16 - Percentage of energy consumption in sleeping mode
 
 def set_nodes(nNodes, nodes_list):
+
     nodes = [[0 for _ in range(17)] for _ in range(nNodes)]
+    emptySet = createEmpty()
+
     for x in range(nNodes):
         node = nodes_list[x]  # Obtener el diccionario que representa el nodo
         nodes[x][0] = node.get('cpu', 10000000)
@@ -97,18 +100,12 @@ def set_nodes(nNodes, nodes_list):
         nodes[x][5] = node.get('importance', 1)
         nodes[x][6] = node.get('pwdown', 0.7)
         nodes[x][7] = node.get('bwdown', 150000000)
-
-        nodes[x][8] = {''}#node.get('sensingunits', {''})
-        nodes[x][9] = {''}#node.get('peripherials', {''})
-
+        nodes[x][8] = set(node.get('sensingunits', emptySet))
+        nodes[x][9] = set(node.get('peripherials', emptySet))
         nodes[x][10] = node.get('typecore', 'computing')
-
         nodes[x][11] = 'class' + str(x) #node.get('class' + str(x))
-        
         nodes[x][12] = node.get('owner', 'public')
-
         nodes[x][13] = node.get('comcap', {'wlan'})
-        
         nodes[x][14] = node.get('cores', 2)
         nodes[x][15] = node.get('percnormal', 30)
         nodes[x][16] = node.get('percsleeping', 0.01)
@@ -125,6 +122,11 @@ def setterMain(nodes_list, tasks_list):
     print (nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt)
     return (nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, tasks, nodes, relation, rtt)
 
+
+def createEmpty():
+        emptySet = set()
+        emptySet.add("")
+        return emptySet
 
 if __name__ == "__main__":
     from imain import nodes_list, tasks_list
