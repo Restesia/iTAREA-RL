@@ -11,6 +11,8 @@
         var resultData = `{{ result | tojson | safe }}`;
 
         function saveFile() {
+
+        // Name file
         var now = new Date();
         var day = String(now.getDate()).padStart(2, "0");
         var month = String(now.getMonth() + 1).padStart(2, "0");
@@ -18,7 +20,8 @@
         var hours = String(now.getHours()).padStart(2, "0");
         var minutes = String(now.getMinutes()).padStart(2, "0");
         var filename = `${day}-${month}-${year}_${hours}.${minutes}.txt`;
-
+        
+        //Save file
         var blob = new Blob([resultData], { type: "text/plain" });
         var url = URL.createObjectURL(blob);
         var link = document.createElement("a");
@@ -28,7 +31,6 @@
         link.click();
         document.body.removeChild(link);
 
-        
     }
     
     </script>
@@ -40,8 +42,10 @@
     <pre>{{ result }}</pre>
 
     <div class="container">
-        <button class="button" id="save-button" onclick='saveFile()'>Save</button>
+        <button class="button" id="save-button" onclick='saveFile()'>Save all</button>
+        <!-- <button class="button" id="save-button" onclick='saveFile()'>Save</button> -->
     </div>
+
 
     <div class="container">
         <a class="button left-button" href="{{ url_for(determine_back_route()) }}">back</a>
