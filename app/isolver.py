@@ -3,7 +3,7 @@ from gurobipy import quicksum
 from gurobipy import GRB
 import re
 
-def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
+def solverMain(tasks, nodes, relation, rtt, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
     for t in range(nTask):
         solver.addConstr(quicksum(assignment[t][n] for n in range(nNodes)) == 1)
 
@@ -88,5 +88,5 @@ def solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes,
     return solver
 
 if __name__ == "__main__":
-    from imain import tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver
-    solverMain(tasks, nodes, relation, rtt, nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver)
+    from imain import tasks, nodes, relation, rtt, nConstraints, nTask, nNodes, cpuPercentages, solver
+    solverMain(tasks, nodes, relation, rtt, nConstraints, nTask, nNodes, cpuPercentages, solver)

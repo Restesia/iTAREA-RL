@@ -45,7 +45,6 @@ if __name__ == "__main__":
         nodes, 
         relation, 
         rtt, 
-        nUsers, 
         nConstraints, 
         nTask, 
         nNodes, 
