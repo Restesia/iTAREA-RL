@@ -4,13 +4,12 @@ import subprocess
 import json
 import os
 import datetime
-import cgi
 from proccessor import proccess
 
 app=Flask(__name__)
 nodes_list = []
 tasks_list = []
-stringsForm = cgi.FieldStorage()
+
 
 #---------ROUTES---------
 route = 'imain.py' #TRABAJO

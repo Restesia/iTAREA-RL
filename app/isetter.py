@@ -1,6 +1,5 @@
 from gurobipy import *
 from gurobipy import Model, GRB
-import logging
 
 def set_problem_size(nodes_list, tasks_list):
 

@@ -1,7 +1,6 @@
 from gurobipy import *
 from gurobipy import quicksum
 from gurobipy import GRB
-import re
 
 def solverMain(tasks, nodes, relation, rtt, nConstraints, nTask, nNodes, cpuPercentages, solver, communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints):
     for t in range(nTask):
@@ -84,7 +83,6 @@ def solverMain(tasks, nodes, relation, rtt, nConstraints, nTask, nNodes, cpuPerc
     solver.setObjectiveN(cores, 1, GRB.MINIMIZE)
 
     solver.optimize()
-    #print("STATUS: ",solver.status)
     return solver
 
 if __name__ == "__main__":
