@@ -39,6 +39,7 @@ def json_read(file_content):
     tasks_json_string = "[" + ", ".join([json.dumps(item) for item in tasks_json]) + "]"
 
     return nodes_json_string, tasks_json_string
+    return nodes_json_string, tasks_json_string
 
 
 def txt_read(file_content):
