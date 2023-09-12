@@ -6,6 +6,13 @@ def proccess(file):
     nodes_list, tasks_list = classifyAndGetData(file_content, file_extension)
     return nodes_list, tasks_list
 
+#---------------------------------------AUX METHODS---------------------------------------
+
+def getContentAndExtension(file):
+    file_content = (file.read()).decode('utf-8')                #STRING
+    file_extension = (file.filename).rsplit('.', 1)[-1].lower() #STRING
+    return file_content, file_extension
+
 def classifyAndGetData(file_content, file_extension):
     # Identificar el tipo
     if(file_extension=="json"): return json_read(file_content)    
@@ -13,7 +20,7 @@ def classifyAndGetData(file_content, file_extension):
     if(file_extension=="py"):   return python_read(file_content)
     else: return "",""
 
-#---------------------------------------------------
+#---------------------------------------READERS---------------------------------------
 
 def json_read(file_content):
     nodes_json = []
@@ -40,12 +47,7 @@ def txt_read(file_content):
 def python_read(file_content):
     return json_read(file_content)
 
-def getContentAndExtension(file):
-    file_content = (file.read()).decode('utf-8')                #STRING
-    file_extension = (file.filename).rsplit('.', 1)[-1].lower() #STRING
-    return file_content, file_extension
-
-#TESTNG
+#---------------------------------------TESTING---------------------------------------
 if __name__ == "__main__":
     str = "HELLO WORLD"
     fe = "py"
