@@ -1,3 +1,4 @@
+#DEFINED ON enterNodes.html
 def add_node(request, nodes_list):
     new_object = {
         'name':         request.form['name'],
@@ -22,6 +23,7 @@ def add_node(request, nodes_list):
     nodes_list.append(new_object)
     return nodes_list
 
+#DEFINED ON enterTasks.html
 def add_task(request, tasks_list):
     new_object = {
         'taskname':     request.form['taskname'],
