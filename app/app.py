@@ -5,19 +5,21 @@ import json
 import os
 import datetime
 from proccessor import proccess
+from objectCreator import add_node, add_task
 
 app=Flask(__name__)
 nodes_list = []
 tasks_list = []
 
 
-#---------ROUTES---------
+#---------------------------------------ROUTES---------------------------------------
+
 route = 'imain.py' #TRABAJO
 #route = 'app_metrics/app/imain.py'
 #route = 'app/imain.py' #PERSONAL
 
+#---------------------------------------LOAD HTML TEMPLATES---------------------------------------
 
-#---------LOAD HTML TEMPLATES---------
 @app.route("/loadNodesTemplate")
 def loadNodesTemplate():
     return render_template("enterNodes.html",  nodes_list=nodes_list, zip_lists=zip_lists)
@@ -35,52 +37,18 @@ def printValues():
     output = loadData(json.dumps(nodes_list), json.dumps(tasks_list))
     return render_template('printValues.html', result=output, determine_back_route=determine_back_route)
 
-#---------ADD AND DELETE---------
+#---------------------------------------ADD AND DELETE OBJECTS---------------------------------------
 
 @app.route('/add_new_node', methods=['POST'])
 def add_new_node():
-
-    new_object = {
-        'name':         request.form['name'],
-        'cpu':          int(request.form['cpu']),
-        'bwup':         int(request.form['bwup']),
-        'pwup':         float(request.form['pwup']),
-        'maxenergy':    int(request.form['maxenergy']),
-        'ram':          int(request.form['ram']),
-        'importance':   int(request.form['importance']),
-        'pwdown':       float(request.form['pwdown']),
-        'bwdown':       int(request.form['bwdown']),
-        'sensingunits': (request.form['sensingunits'].split(', ')), #sensingunits = request.form['sensingunits']
-        'peripherials': (request.form['peripherials'].split(', ')), #peripherials = request.form['peripherials']
-        'typecore':     request.form['typecore'],
-        # 'location':     request.form['location'],
-        'owner':        request.form['owner'],
-        'comcap':       ((request.form['comcap']).split(', ')),
-        'cores':        int(request.form['cores']),
-        'percnormal':   float(request.form['percnormal']),
-        'percsleeping': float(request.form['percsleeping'])
-    }
-    nodes_list.append(new_object)
-    #printAll(nodes_list)
+    global nodes_list
+    nodes_list = add_node(request, nodes_list)     #printAll(nodes_list)
     return redirect(url_for('loadNodesTemplate'))
 
 @app.route('/add_new_task', methods=['POST'])
 def add_new_task():
-    new_object = {
-        'taskname':     request.form['taskname'],
-        'cpucycles':    int(request.form['cpucycles']),
-        'ram':          int(request.form['ram']),
-        'user':         int(request.form['user']),
-        'mintransm':    int(request.form['mintransm']),
-        'sensreq':      ((request.form['sensreq']).split(', ')), #set() es necesario, pero hace no serializable la app
-        'periphreq':    ((request.form['periphreq']).split(', ')), 
-        'transmit':     ((request.form['transmit']).split(', ')),
-        'exlocation':   request.form['exlocation'],
-        'tasktype':     request.form['tasktype'],
-        'disk':         int(request.form['disk']),
-    }
-    tasks_list.append(new_object)
-    #printAll(tasks_list)
+    global tasks_list
+    tasks_list = add_task(request, tasks_list)     #printAll(tasks_list)
     return redirect(url_for('loadTasksTemplate'))
 
 @app.route('/delete_node', methods=['POST'], )
@@ -93,7 +61,7 @@ def delete_task():
     delete_object(tasks_list)
     return redirect('/loadTasksTemplate')
 
-#---------LOAD MORE INFO---------
+#---------------------------------------FILE LOADING, WRITING AND UPDATING---------------------------------------
 
 @app.route('/processAndPrint', methods=['POST'])
 def processAndPrint():
@@ -141,7 +109,7 @@ def saveResult():
 
     return message
 
-#---------AUX FUNCTIONS---------
+#---------------------------------------AUX FUNCTIONS---------------------------------------
 
 def loadData(nodes_json, tasks_json):
     output=""
@@ -154,11 +122,10 @@ def loadData(nodes_json, tasks_json):
         print("Error output:", e.output)
     return output
 
-def zip_lists(a, b):     return zip(a, b)
+def zip_lists(a, b): return zip(a, b)
 
 def printAll(list):
-    for elem in list:
-        print(elem)
+    for elem in list: print(elem)
 
 def determine_back_route():
     current_path = request.referrer
@@ -178,7 +145,7 @@ def delete_object(this_list):
         if 0 <= index < len(this_list):
             del this_list[index]
     
-#---------MAIN FUNCTIONS---------
+#---------------------------------------MAIN FUNCTIONS---------------------------------------
 
 @app.route('/')
 def index():
