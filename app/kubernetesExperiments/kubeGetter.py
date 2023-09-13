@@ -21,14 +21,14 @@ def print_info():
 		
 
 	# Obtener la lista de servicios en el clúster
-	print("Servicios en el clúster de Kubernetes:")
-	services = v1.list_service_for_all_namespaces().items
-	for service in services:
-		print("- Nombre: %s" % service.metadata.name)
-		print("  Namespace: %s" % service.metadata.namespace)
-		print("  Tipo: %s" % service.spec.type)
-		print("  Puertos expuestos: %s" % service.spec.ports)
-		print("")
+	print("Pods en el clúster de Kubernetes:")
+	pods = v1.list_namespaced_pod("default").items
+	for pod in pods:
+		print("- Nombre: %s" % pod.metadata.name)
+		print("  Namespace: %s" % pod.metadata.namespace)
+	#	print("  Tipo: %s" % pod.spec.type)
+	#	print("  Puertos expuestos: %s" % pod.spec.ports)
+	#	print("")
 
 
 if __name__ == "__main__":
