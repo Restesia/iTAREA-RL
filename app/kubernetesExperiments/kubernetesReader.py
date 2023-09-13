@@ -1,5 +1,7 @@
 from kubernetes import client, config
 
+from cpuBwGetter import get_bandwidth_usage_per_pod
+
 # Cargar la configuración del archivo kubeconfig (o usar la configuración por defecto)
 config.load_kube_config()
 print(config.load_kube_config())

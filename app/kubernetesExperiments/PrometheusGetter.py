@@ -4,7 +4,7 @@ from prometheus_api_client import PrometheusConnect
 prom = PrometheusConnect(url="http://localhost:30000")
 
 # Define la consulta para obtener las métricas de uso de CPU de un contenedor específico
-query = 'container_cpu_usage_seconds_total{container="<nombre_del_contenedor>", namespace="<nombre_del_namespace>"}'
+query = 'container_cpu_usage_seconds_total{namespace="default"}'
 
 # Ejecuta la consulta
 results = prom.custom_query(query)
