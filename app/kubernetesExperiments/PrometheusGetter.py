@@ -1,35 +1,14 @@
-from kubernetes import client, config
+from prometheus_api_client import PrometheusConnect
 
-# CONSUMO ENERGÍA (WATTS)
-#import hardware_monitoring_library
-# power_consumption = hardware_monitoring_library.get_power_consumption()
+# Conecta con el servidor Prometheus
+prom = PrometheusConnect(url="http://localhost:30000")
 
-# Cargar la configuración del archivo kubeconfig (o usar la configuración por defecto)
-config.load_kube_config()
-print(config.load_kube_config())
+# Define la consulta para obtener las métricas de uso de CPU de un contenedor específico
+query = 'container_cpu_usage_seconds_total{container="<nombre_del_contenedor>", namespace="<nombre_del_namespace>"}'
 
-# Crear una instancia del objeto API de Kubernetes
-v1 = client.CoreV1Api()
-custom_api = client.CustomObjectsApi()
+# Ejecuta la consulta
+results = prom.custom_query(query)
 
-
-def print_info():
-	print("-Finish-")
-	nodes = v1.list_node().items
-	for node in nodes:
-		print("- Nombre: %s" % node.metadata.name)
-		
-
-	# Obtener la lista de servicios en el clúster
-	print("Servicios en el clúster de Kubernetes:")
-	services = v1.list_service_for_all_namespaces().items
-	for service in services:
-		print("- Nombre: %s" % service.metadata.name)
-		print("  Namespace: %s" % service.metadata.namespace)
-		print("  Tipo: %s" % service.spec.type)
-		print("  Puertos expuestos: %s" % service.spec.ports)
-		print("")
-
-
-if __name__ == "__main__":
-    print_info()
+# El resultado será un diccionario con las métricas de uso de CPU
+cpu_usage = float(results[0]['value'][1])
+print("Uso de CPU (decimal):", cpu_usage)
