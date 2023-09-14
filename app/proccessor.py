@@ -9,8 +9,9 @@ def proccess(file):
 #---------------------------------------AUX METHODS---------------------------------------
 
 def getContentAndExtension(file):
-    file_content = (file.read()).decode('utf-8')                #STRING
-    file_extension = (file.filename).rsplit('.', 1)[-1].lower() #STRING
+    file_content_with_breaks = ((file.read()).decode('utf-8'))
+    file_content = ''.join(file_content_with_breaks.splitlines())   #STRING
+    file_extension = (file.filename).rsplit('.', 1)[-1].lower()     #STRING
     return file_content, file_extension
 
 def classifyAndGetData(file_content, file_extension):
@@ -39,13 +40,14 @@ def json_read(file_content):
     tasks_json_string = "[" + ", ".join([json.dumps(item) for item in tasks_json]) + "]"
 
     return nodes_json_string, tasks_json_string
-    return nodes_json_string, tasks_json_string
 
 
 def txt_read(file_content):
-    return json_read(file_content)
+    file_json = json.dumps(file_content)
+    return json_read(file_json)
 
 def python_read(file_content):
+    file_json = json.dumps(file_content)
     return json_read(file_content)
 
 #---------------------------------------TESTING---------------------------------------

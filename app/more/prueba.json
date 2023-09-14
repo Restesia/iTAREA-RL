@@ -6,3 +6,4 @@
     {"taskname": "t2", "cpucycles": 150000, "ram": 150, "user": 0, "mintransm": 0, "sensreq": [""], "periphreq": [""], "transmit": [""], "exlocation": "none", "tasktype": "computing", "disk": 100},
     {"taskname": "t3", "cpucycles": 150000, "ram": 150, "user": 0, "mintransm": 0, "sensreq": [""], "periphreq": [""], "transmit": [""], "exlocation": "none", "tasktype": "computing", "disk": 100}
 ]
+

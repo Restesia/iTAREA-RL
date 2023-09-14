@@ -72,6 +72,7 @@ label {
 input[type="text"],
 input[type="number"] {
   font-family: "Poppins", sans-serif;
+  
 }
 input[type="submit"] {
   display: inline-block;
@@ -80,7 +81,6 @@ input[type="submit"] {
   color: white;
   text-align: center;
   text-decoration: none;
-  font-size: 12px;
   border-radius: 5px; /* round corners */
   margin: 5px;
   border: none;
@@ -93,7 +93,6 @@ input[type="submit"] {
   color: white;
   text-decoration: none;
   margin-right: 10px;
-  border-radius: 0;
   border: none;
   border-radius: 5px; /* round corners */
   
@@ -101,7 +100,6 @@ input[type="submit"] {
 
 #save-button {
   background-color: #416245;
-  border-radius: 0;
   border: none;
   text-align: center !important;
   font-size: 16px; 
@@ -139,21 +137,6 @@ ol {
   border-radius: 5px; /* round corners */
 }
 
-/* Botones flotantes izquierda y derecha */
-.left-button {
-  background-color: #414c5e;
-  float: left;
-  border-radius: 0;
-  border: none;
-  border-radius: 5px; /* round corners */
-}
-.right-button {
-  background-color: #414c5e;
-  float: right;
-  border-radius: 0;
-  border: none;
-  border-radius: 5px; /* round corners */
-}
 
 /* Elementos de nodo */
 .node-item {
