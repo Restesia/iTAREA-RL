@@ -65,12 +65,10 @@ def delete_task():
 
 @app.route('/processAndPrint', methods=['POST'])
 def processAndPrint():
-    
-    nodes_json=""
-    tasks_json=""
-    output=""
-
     if request.method == 'POST':
+        nodes_json=""
+        tasks_json=""
+        output=""
         file = request.files['file_input']
         if file:
             try:
@@ -81,7 +79,12 @@ def processAndPrint():
                 return render_template('printValues.html', result=error_message, determine_back_route=determine_back_route)
             except Exception as e:
                 return render_template('printValues.html', result=str(e), determine_back_route=determine_back_route) 
-    return render_template('printValues.html', result=output, determine_back_route=determine_back_route)
+        return render_template('printValues.html', result=output, determine_back_route=determine_back_route)
+
+# @app.route("/printValues")
+# def printValues():
+#     output = loadData(json.dumps(nodes_list), json.dumps(tasks_list))
+#     return render_template('printValues.html', result=output, determine_back_route=determine_back_route)
 
 @app.route("/saveResult", methods=["POST"])
 def saveResult():
