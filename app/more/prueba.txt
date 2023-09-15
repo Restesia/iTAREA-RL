@@ -1,0 +1,9 @@
+[
+    {"name": "n1", "cpu": 10000000, "bwup": 150000000, "pwup": 0.3, "maxenergy": 75, "ram": 2000, "importance": 1, "pwdown": 0.7, "bwdown": 150000000, "sensingunits": [""], "peripherials": [""], "typecore": "computing", "owner": "public", "comcap": ["wlan"], "cores": 2, "percnormal": 30.0, "percsleeping": 0.01},
+    {"name": "n2", "cpu": 10000000, "bwup": 150000000, "pwup": 0.3, "maxenergy": 75, "ram": 2000, "importance": 1, "pwdown": 0.7, "bwdown": 150000000, "sensingunits": [""], "peripherials": [""], "typecore": "computing", "owner": "public", "comcap": ["wlan"], "cores": 2, "percnormal": 30.0, "percsleeping": 0.01},
+    {"name": "n3", "cpu": 10000000, "bwup": 150000000, "pwup": 0.3, "maxenergy": 75, "ram": 2000, "importance": 1, "pwdown": 0.7, "bwdown": 150000000, "sensingunits": [""], "peripherials": [""], "typecore": "computing", "owner": "public", "comcap": ["wlan"], "cores": 2, "percnormal": 30.0, "percsleeping": 0.01},
+    {"taskname": "t1", "cpucycles": 150000, "ram": 150, "user": 0, "mintransm": 0, "sensreq": [""], "periphreq": [""], "transmit": [""], "exlocation": "none", "tasktype": "computing", "disk": 100},
+    {"taskname": "t2", "cpucycles": 150000, "ram": 150, "user": 0, "mintransm": 0, "sensreq": [""], "periphreq": [""], "transmit": [""], "exlocation": "none", "tasktype": "computing", "disk": 100},
+    {"taskname": "t3", "cpucycles": 150000, "ram": 150, "user": 0, "mintransm": 0, "sensreq": [""], "periphreq": [""], "transmit": [""], "exlocation": "none", "tasktype": "computing", "disk": 100}
+]
+
