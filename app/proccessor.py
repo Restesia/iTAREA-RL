@@ -48,7 +48,7 @@ def txt_read(file_content):
 
 def python_read(file_content):
     file_json = json.dumps(file_content)
-    return json_read(file_content)
+    return json_read(file_json)
 
 #---------------------------------------TESTING---------------------------------------
 if __name__ == "__main__":
