@@ -52,6 +52,7 @@ def print_info():
     print("Pods en el clúster de Kubernetes:")
     for pod in pods: 
         print("- Nombre: %s" % pod.metadata.name)
+        print("  All: %s" % pod.metadata)
 		
 	#	print("  Namespace: %s" % pod.metadata.namespace)
 	#	print("  Tipo: %s" % pod.spec.type)
