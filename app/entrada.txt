@@ -1,0 +1,71 @@
+"Restricted license - for non-production use only - expires 2024-10-28
+Set parameter NonConvex to value 2
+energyMain:  1 0 3 3 2 <gurobi.Model Continuous instance milp: 0 constrs, 0 vars, Parameter changes: NonConvex=2> [[10000000, 150000000, 0.3, 75, 2000, 1, 0.7, 150000000, {''}, {''}, 'computing', 'class0', 'public', ['wlan'], 2, 30.0, 0.01], [10000000, 150000000, 0.3, 75, 2000, 1, 0.7, 150000000, {''}, {''}, 'computing', 'class1', 'public', ['wlan'], 2, 30.0, 0.01], [10000000, 150000000, 0.3, 75, 2000, 1, 0.7, 150000000, {''}, {''}, 'computing', 'class2', 'public', ['wlan'], 2, 30.0, 0.01]]
+Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (win64)
+
+CPU model: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz, instruction set [SSE2|AVX|AVX2]
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+
+Optimize a model with 20 rows, 33 columns and 47 nonzeros
+Model fingerprint: 0x9912275f
+Model has 20 quadratic constraints
+Variable types: 14 continuous, 19 integer (9 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+03]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 4e+00]
+  RHS range        [1e+00, 2e+03]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 2 objectives (1 combined) ...
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (weighted) ...
+---------------------------------------------------------------------------
+
+Optimize a model with 20 rows, 33 columns and 47 nonzeros
+Model fingerprint: 0xa5052d81
+Model has 20 quadratic constraints
+Variable types: 14 continuous, 19 integer (9 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+03]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 4e+00]
+  RHS range        [1e+00, 2e+03]
+Presolve removed 5 rows and 6 columns
+Presolve time: 0.01s
+Presolved: 51 rows, 27 columns, 108 nonzeros
+Presolved model has 9 bilinear constraint(s)
+Variable types: 9 continuous, 18 integer (9 binary)
+
+Root relaxation: objective 2.362575e+04, 21 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 23625.7500    0    6          - 23625.7500      -     -    0s
+H    0     0                    23628.000000 23625.7500  0.01%     -    0s
+
+Explored 1 nodes (21 simplex iterations) in 0.04 seconds (0.00 work units)
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 23628 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.362800000000e+04, best bound 2.362600000000e+04, gap 0.0085%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.04 seconds (0.00 work units), solution count 1
+
+Task 0 assigned to Node 1
+Task 1 assigned to Node 2
+Task 2 assigned to Node 1
+CPU assigned in Node 1 to Task 0. CPU (cores): 0.5
+CPU assigned in Node 1 to Task 2. CPU (cores): 0.5
+CPU assigned in Node 2 to Task 1. CPU (cores): 0.5
+"
