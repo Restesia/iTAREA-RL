@@ -28,10 +28,16 @@ function saveInputConfig() {
     }
 }
 
-function saveConfig(nodes, tasks) {
+function saveConfig(nodes_string, tasks_string) {
 
-    filename = nameFile()
-    output = nodes + tasks
+    filename = nameFile();
+
+    const nodes = JSON.parse(nodes_string);
+    const tasks = JSON.parse(tasks_string);
+
+    json_array = nodes.concat(tasks) //FALLO?
+    const output = JSON.stringify(json_array);
+
     saveFile(output)
 
 }
