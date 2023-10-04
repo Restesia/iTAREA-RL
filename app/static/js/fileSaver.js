@@ -7,6 +7,22 @@ function saveAllFile() {
     saveFile(resultData);
 }
 
+function saveAssignmentFile(){
+    filename = nameFile();
+    assignmentsText = getAssignment(resultData)
+    saveFile(assignmentsText);
+}
+
+function saveConfigAndAssignmentFile(nodes_string, tasks_string){
+
+    filename = nameFile();
+    input = toStringInput(nodes_string, tasks_string);
+    assignmentsText = getAssignment(resultData);
+    result = input + "\n" + "\n" + assignmentsText;
+    saveFile(result);
+
+}
+
 function savePDF() {
     filename = nameFile();
     print()
@@ -31,18 +47,34 @@ function saveInputConfig() {
 function saveConfig(nodes_string, tasks_string) {
 
     filename = nameFile();
-
-    const nodes = JSON.parse(nodes_string);
-    const tasks = JSON.parse(tasks_string);
-
-    json_array = nodes.concat(tasks) //FALLO?
-    const output = JSON.stringify(json_array);
-
+    const output = toStringInput(nodes_string, tasks_string);
     saveFile(output)
 
 }
 
+function toStringInput(nodes_string, tasks_string) {
+    const nodes = JSON.parse(nodes_string);
+    const tasks = JSON.parse(tasks_string);
+    json_array = nodes.concat(tasks);
+    const output = JSON.stringify(json_array);
+    return output;
+}
+
 /*-----------------AUX METHODS-----------------*/
+
+function getAssignment(resultData){
+
+  var lines = resultData.split('\n');
+  var assignment_text = "";
+  for (var i = 0; i < lines.length; i++) {
+    var linea = lines[i];
+    if (linea.startsWith("Task") || linea.startsWith("CPU assigned")) {
+      assignment_text += linea + "\n";
+    }
+  }
+  return assignment_text;
+}
+
 function nameFile(){
     var now = new Date();
     var day = String(now.getDate()).padStart(2, "0");
