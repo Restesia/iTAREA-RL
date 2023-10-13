@@ -25,17 +25,44 @@ def get_node_bandwidth_up(node_name):
     except Exception as e:
         print("Error al obtener la capacidad de Bandwidth up:", str(e))
 
-def get_node_power_upload(): # -FOR TESTING-
-    return None
+def get_node_power_upload(node_name): # -FOR TESTING-
+    try:
+        node = v1.read_node(node_name)
+        power_upload = node.metadata.annotations.get("power_upload")
+        return power_upload
+    except Exception as e:
+        print("Error al obtener la capacidad de carga de energía:", str(e))
+        return None
 
-def get_node_power_download(): # -FOR TESTING-
-    return None
 
-def get_node_max_energy_consumption(): # -FOR TESTING-
-    return None
+def get_node_power_download(node_name):
+    try:
+        node = v1.read_node(node_name)
+        power_download = node.metadata.annotations.get("power_download")
+        return power_download
+    except Exception as e:
+        print("Error al obtener la capacidad de descarga de energía:", str(e))
+        return None
 
-def get_node_type(): # -FOR TESTING-
-    return None
+
+def get_node_max_energy_consumption(node_name):
+    try:
+        node = v1.read_node(node_name)
+        max_energy_consumption = node.metadata.annotations.get("max_energy_consumption")
+        return max_energy_consumption
+    except Exception as e:
+        print("Error al obtener la máxima capacidad de consumo de energía:", str(e))
+        return None
+
+def get_node_type(node_name):
+    try:
+        node = v1.read_node(node_name)
+        node_type = node.metadata.labels.get("tu.etiqueta.aqui")
+        return node_type
+    except Exception as e:
+        print("Error al obtener el tipo de nodo:", str(e))
+        return None
+
 
 def get_pod_user(pod): # -FOR TESTING-
     return pod.spec.security_context.run_as_user
@@ -64,10 +91,10 @@ def print_info():
 	    #GET NODE DATA
         node_name = node.metadata.name
         node_cpu_capacity_cps = float(node.status.capacity["cpu"]) * get_node_cpu_clock_speed()
-        node_power_upload = get_node_power_upload()
-        node_power_download = get_node_power_download() 
-        node_max_energy_consumption = get_node_max_energy_consumption()
-        node_type = get_node_type() 
+        node_power_upload = get_node_power_upload(node_name)
+        node_power_download = get_node_power_download(node_name) 
+        node_max_energy_consumption = get_node_max_energy_consumption(node_name)
+        node_type = get_node_type(node_name) 
         #bandwidth_up = get_bandwidth_up(node_name)  
         #power_consumption = hardware_monitoring_library.get_power_consumption()
         #ram_mb = (int(node.status.capacity.get("memory")[:-2]) / 1024 ) * 1000
