@@ -4,20 +4,20 @@ def add_node(request, nodes_list):
         'name':         request.form['name'],
         'cpu':          int(request.form['cpu']),
         'bwup':         int(request.form['bwup']),
-        #'pwup':         float(request.form['pwup']),
-        # 'maxenergy':    int(request.form['maxenergy']),
+        'pwup':         float(request.form['pwup']),
+        'maxenergy':    int(request.form['maxenergy']),
         'ram':          int(request.form['ram']),
-        # 'importance':   int(request.form['importance']),
-        # 'pwdown':       float(request.form['pwdown']),
+        'importance':   int(request.form['importance']),
+        'pwdown':       float(request.form['pwdown']),
         'bwdown':       int(request.form['bwdown']),
         'sensingunits': (request.form['sensingunits'].split(', ')), #sensingunits = request.form['sensingunits']
         'peripherials': (request.form['peripherials'].split(', ')), #peripherials = request.form['peripherials']
         'typecore':     request.form['typecore'],
-        # 'location':     request.form['location'],
-        'owner':        request.form['owner'],
-        'comcap':       ((request.form['comcap']).split(', ')),
+        'location':     request.form['location'],
+        # 'owner':        request.form['owner'],
+        # 'comcap':       ((request.form['comcap']).split(', ')),
         'cores':        int(request.form['cores']),
-        # 'percnormal':   float(request.form['percnormal']),
+        'percnormal':   float(request.form['percnormal']),
         # 'percsleeping': float(request.form['percsleeping'])
     }
     nodes_list.append(new_object)

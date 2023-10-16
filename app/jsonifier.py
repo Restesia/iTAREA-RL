@@ -13,20 +13,22 @@ for item in original_data:
         "name": "n" + str(original_data.index(item) + 1),
         "cpu": item[0],
         "bwup": item[1],
-        # "pwup": item[2],
-        # "maxenergy": item[3],
+        "pwup": item[2],
+        "maxenergy": item[3],
         "ram": item[4],
-        # "importance": item[5],
-        # "pwdown": item[6],
+        "importance": item[5],
+        "pwdown": item[6],
         "bwdown": item[7],
         "sensingunits": item[8],
         "peripherials": item[9],
         "typecore": item[10],
-        "owner": item[11],
-        "comcap": item[12],
-        "cores": item[13],
-        # "percnormal": item[14],
-        # "percsleeping": item[15]
+        "location": item[11],
+        # "owner": item[12],
+        # "comcap": item[13],
+        "cores": item[14],
+        "percnormal": item[15],
+        # "percsleeping": item[16]
+        
     }
     transformed_data.append(transformed_item)
 
