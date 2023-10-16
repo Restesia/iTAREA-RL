@@ -114,10 +114,10 @@ def set_nodes ():
 		nodes[x][0] = 10000000
 		nodes[x][1] = 150000000
 		#nodes[x][2] = 0.3
-		nodes[x][3] = 75
+		# nodes[x][3] = 75
 		nodes[x][4] = 2000
-		nodes[x][5] = 1
-		nodes[x][6] = 0.7
+		# nodes[x][5] = 1
+		# nodes[x][6] = 0.7
 		nodes[x][7] = 150000000
 		nodes[x][8] = {''}
 		nodes[x][9] = {''}
@@ -126,8 +126,8 @@ def set_nodes ():
 		nodes[x][12] = 'public'
 		nodes[x][13] = {'wlan'}
 		nodes[x][14] = 2
-		nodes[x][15] = 30
-		nodes[x][16] = 0.01
+		# nodes[x][15] = 30
+		# nodes[x][16] = 0.01
 
 ### Este método es el más importante, hace uso de la sintaxis de gurobi para plantear el problema de optimización
 def solve ():

@@ -93,11 +93,11 @@ def set_nodes(nNodes, nodes_list):
         node = nodes_list[x]  # Obtener el diccionario que representa el nodo
         nodes[x][0] = node.get('cpu', 10000000)
         nodes[x][1] = node.get('bwup', 150000000)
-        #nodes[x][2] = node.get('pwup', 0.3)
-        nodes[x][3] = node.get('maxenergy', 75)
+        # nodes[x][2] = node.get('pwup', 0.3)
+        # nodes[x][3] = node.get('maxenergy', 75)
         nodes[x][4] = node.get('ram', 2000)
-        nodes[x][5] = node.get('importance', 1)
-        nodes[x][6] = node.get('pwdown', 0.7)
+        # nodes[x][5] = node.get('importance', 1)
+        # nodes[x][6] = node.get('pwdown', 0.7)
         nodes[x][7] = node.get('bwdown', 150000000)
         nodes[x][8] = set(node.get('sensingunits', emptySet))
         nodes[x][9] = set(node.get('peripherials', emptySet))
@@ -106,8 +106,8 @@ def set_nodes(nNodes, nodes_list):
         nodes[x][12] = node.get('owner', 'public')
         nodes[x][13] = node.get('comcap', {'wlan'})
         nodes[x][14] = node.get('cores', 2)
-        nodes[x][15] = node.get('percnormal', 30)
-        nodes[x][16] = node.get('percsleeping', 0.01)
+        # nodes[x][15] = node.get('percnormal', 30)
+        # nodes[x][16] = node.get('percsleeping', 0.01)
     return nodes
 
 
