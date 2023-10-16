@@ -13,7 +13,7 @@ for item in original_data:
         "name": "n" + str(original_data.index(item) + 1),
         "cpu": item[0],
         "bwup": item[1],
-        "pwup": item[2],
+        #"pwup": item[2],
         "maxenergy": item[3],
         "ram": item[4],
         "importance": item[5],

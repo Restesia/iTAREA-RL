@@ -113,7 +113,7 @@ def set_nodes ():
 	for x in range(0, nNodes):
 		nodes[x][0] = 10000000
 		nodes[x][1] = 150000000
-		nodes[x][2] = 0.3
+		#nodes[x][2] = 0.3
 		nodes[x][3] = 75
 		nodes[x][4] = 2000
 		nodes[x][5] = 1

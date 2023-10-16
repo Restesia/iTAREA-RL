@@ -4,7 +4,7 @@ def add_node(request, nodes_list):
         'name':         request.form['name'],
         'cpu':          int(request.form['cpu']),
         'bwup':         int(request.form['bwup']),
-        'pwup':         float(request.form['pwup']),
+        #'pwup':         float(request.form['pwup']),
         'maxenergy':    int(request.form['maxenergy']),
         'ram':          int(request.form['ram']),
         'importance':   int(request.form['importance']),
