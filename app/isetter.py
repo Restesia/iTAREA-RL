@@ -93,7 +93,7 @@ def set_nodes(nNodes, nodes_list):
         node = nodes_list[x]  # Obtener el diccionario que representa el nodo
         nodes[x][0] = node.get('cpu', 10000000)
         nodes[x][1] = node.get('bwup', 150000000)
-        nodes[x][2] = node.get('pwup', 0.3)
+        #nodes[x][2] = node.get('pwup', 0.3)
         nodes[x][3] = node.get('maxenergy', 75)
         nodes[x][4] = node.get('ram', 2000)
         nodes[x][5] = node.get('importance', 1)
