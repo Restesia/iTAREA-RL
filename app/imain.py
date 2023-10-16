@@ -7,6 +7,9 @@ import sys
 import json
 res=""
 
+nodes_list=""
+tasks_list=""
+
 # Convertir los datos JSON a listas de Python
 def getLists(json_nodes_list , json_tasks_list):
  
