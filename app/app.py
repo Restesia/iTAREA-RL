@@ -35,8 +35,10 @@ def readFile():
 
 @app.route("/printValues")
 def printValues():
-    output = loadData(json.dumps(nodes_list), json.dumps(tasks_list))
-    return render_template('printValues.html', result=output, nodes=nodes_list, tasks=tasks_list, determine_back_route=determine_back_route)
+    nodes_json = json.dumps(nodes_list)
+    tasks_json = json.dumps(tasks_list)
+    output = loadData(nodes_json, tasks_json)
+    return render_template('printValues.html', result=output, nodes=nodes_json, tasks=tasks_json, determine_back_route=determine_back_route)
 
 #---------------------------------------ADD AND DELETE OBJECTS---------------------------------------
 

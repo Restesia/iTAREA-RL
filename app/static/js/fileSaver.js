@@ -52,8 +52,16 @@ function saveConfig(nodes_string, tasks_string) {
 
 }
 
+function decodeHTML(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+  
+
 function toStringInput(nodes_string, tasks_string) {
-    const nodes = JSON.parse(nodes_string);
+    console.log(nodes_string);
+    const nodes = JSON.parse(decodeHTML(nodes_string));
     const tasks = JSON.parse(tasks_string);
     json_array = nodes.concat(tasks);
     const output = JSON.stringify(json_array);

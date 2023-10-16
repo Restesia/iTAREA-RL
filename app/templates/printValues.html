@@ -18,9 +18,9 @@
     <div class="container">
         <button class="button" id="save-button" onclick='saveAllFile()'>Save this output</button>
         <button class="button" id="save-button" onclick='savePDF()'>Save this on PDF</button>
-        <button class="button" id="save-button" onclick="saveConfig('{{ nodes }}', '{{ tasks}}')">Save configuration only</button>
+        <button class="button" id="save-button" onclick="saveConfig(`{{nodes}}`,`{{tasks}}`)">Save configuration only</button>
         <button class="button" id="save-button" onclick="saveAssignmentFile()">Save assignment only</button>
-        <button class="button" id="save-button" onclick="saveConfigAndAssignmentFile('{{ nodes }}', '{{ tasks}}')">Save configuration and assignment</button>
+        <button class="button" id="save-button" onclick="saveConfigAndAssignmentFile(`{{nodes}}`, `{{tasks}}`)">Save configuration and assignment</button>
     </div>
 
 
