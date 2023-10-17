@@ -87,7 +87,7 @@ def print_info():
     
     print("Nodes en el clúster de Kubernetes:")
     for node in nodes:
-       
+        
 	    #GET NODE DATA
         node_name = node.metadata.name
         node_cpu_capacity_cps = float(node.status.capacity["cpu"]) * get_node_cpu_clock_speed()
