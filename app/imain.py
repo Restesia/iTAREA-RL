@@ -42,6 +42,14 @@ if __name__ == "__main__":
     communicationCost, communicationCostDown, computationCost, communicationTime, computationTime, cores, assignment, percentageCPU, percentageCPUaux, constraints = energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, nodes)
     #res += "COMMUNICATION COST: " + str(communicationCost) + "\n" + "COMMUNICATION COST DOWN: " + str(communicationCostDown) + "\n" + "COMPUTATION COST: " + str(computationCost) + "\n" + "COMMUNICATION TIME: " + str(communicationTime) + "\n" + "COMPUTATION TIME: " + str(computationTime) + "\n" + "CORES: " + str(cores) + "\n" + "ASSIGNMENT: " + str(assignment) + "\n" + "PERCENTAGE CPU: " + str(percentageCPU) + "\n" + "PERCENTAGE CPU AUX: " + str(percentageCPUaux) + "\n" + "CONSTRAINTS: " + str(constraints) + "\n"
     
+    print("communicationCost: ", communicationCost)
+    print("communicationCostDown: ", communicationCostDown)
+    print("computationCost: ", computationCost)
+    print("communicationTime: ", communicationTime)
+    print("computationTime: ", computationTime)
+    print("cores: ", cores)
+
+
     # 4. Llamar a la función solveAll
     solver = solverMain(
         tasks, 
