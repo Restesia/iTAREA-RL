@@ -228,6 +228,15 @@ def solve ():
 				print('CPU assigned in Node ' + str(aux[0]) + ' to Task ' + str(aux[1]) + '. CPU (cores): ' + str(int(v.x)/(cpuPercentages)))
 	else:
 		print('The model is infeasible')
+	
+	print()
+	print("communicationCost: ", communicationCost.X)
+	print("communicationCostDown: ", communicationCostDown.X)
+	print("computationCost: ", computationCost.X)
+	print("communicationTime: ", communicationTime.X)
+	print("computationTime: ", computationTime.X)
+	print("cores: ", cores.X)
+	print()
 
 if __name__ == "__main__":
 
