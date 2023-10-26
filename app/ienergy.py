@@ -11,6 +11,8 @@ def energyMain(nUsers, nConstraints, nTask, nNodes, cpuPercentages, solver, node
     computationTime = solver.addVar(vtype=GRB.CONTINUOUS, name='computationTime')
     cores = solver.addVar(vtype=GRB.INTEGER, name='cores')
 
+    print()
+
     assignment = [[solver.addVar(vtype=GRB.BINARY, name="ASING_%s_%s" % (r, c)) for c in range(nNodes)]
                   for r in range(nTask * nUsers)]
 
