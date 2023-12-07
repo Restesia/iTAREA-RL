@@ -13,11 +13,11 @@ class NFVEnv(gym.Env):
         # He utilizado la estructura de Task como 
         self.observation_space = spaces.Dict(
             {
-                "CPU": spaces.Discrete(5),
-                "RAM": spaces.Discrete(5),
-                "User": spaces.Discrete(5),
-                "MinimTrans": spaces.Discrete(5),
-                "SReq": spaces.Dict({}),
+                "CPU": int,
+                "RAM": int,
+                "User": int,
+                "MinimTrans": int,
+                "Compatibility": spaces.Discrete(2),
                 "PReq": spaces.Dict({}),
                 "Transmit": spaces.Dict({}),
                 "loc": spaces.Text(10),
